@@ -1,0 +1,46 @@
+# SPONSIFY
+
+> SPONSIFY is a digital marketing agency based in Qatar. It designs websites, manages social media, runs paid ads on Meta, Google and TikTok, builds marketing automation and lead generation systems, and develops mobile and web apps. It works in Arabic and English.
+
+## Services
+- Website design: fast, mobile-first websites in Arabic and English.
+- Social media management: content, reels and community management.
+- Paid ads: Meta, Google and TikTok campaigns measured by cost per customer.
+- Marketing automation and lead generation: Google Maps lead research, email outreach and automatic follow-ups.
+- App development: custom mobile and web apps.
+- Creative production: graphic design, motion graphics and AI video.
+
+## Clients and work
+- Kaza Store: Charcoal e-commerce store.
+- Sharmax Motors Qatar: Motorcycles, ATVs and golf carts.
+- PerfUp Qatar: Health, massage and physiotherapy.
+- Eat & Lose: Healthy food restaurant.
+- UniHealth: Supplements and sports nutrition.
+- Greece Residency Capital: Greece residency by investment.
+- Wady: B2B platform linking restaurants and distributors.
+- DARS: Education platform.
+- Rowwad: Advisory and business solutions.
+- Masar: School transport app.
+- Work for DARS: ad creatives, social posts, motion graphics and AI video. Rowwad: ad creatives and website concepts. Masar: app demo videos.
+
+## How SPONSIFY works
+1. Audit: a free 15-minute review of the business's online presence.
+2. Strategy: goals, channels and budget.
+3. Launch: build, publish and run, with client approval on key steps.
+4. Grow: monthly reports and optimization.
+
+## Contact
+- WhatsApp / phone: +974 3302 9577 (https://wa.me/97433029577)
+- Email: aliboussella@gmail.com
+- Languages: Arabic, English
+
+## Pages
+- [Home](https://alieeb.github.io/sponsify/): services, process, FAQ and free audit form
+- [Our work and clients](https://alieeb.github.io/sponsify/work.html): graphic design, motion graphics, AI videos and app videos
+
+## Blog
+- [How to Choose the Best Digital Marketing Agency in Qatar: 10 Questions to Ask](https://alieeb.github.io/sponsify/blog/choose-digital-marketing-agency-qatar.html): A practical checklist for Qatar business owners comparing marketing agencies: what to ask, what to check, and the red flags that cost you money.
+- [Meta Ads in Qatar: Why Boosting Posts Wastes Your Budget (and What to Do Instead)](https://alieeb.github.io/sponsify/blog/meta-ads-qatar-boosting-posts.html): Boosting Instagram and Facebook posts is easy, but it rarely brings customers. Here is how Qatar businesses should run Meta ads that sell.
+- [Arabic and English Marketing in Qatar: How to Run Bilingual Content That Sells](https://alieeb.github.io/sponsify/blog/arabic-english-marketing-qatar.html): How Qatar brands can plan, write and design social media, ads and websites in Arabic and English without doubling the work or losing the message.
+- [Google Maps for Qatar Businesses: How to Get Found When People Search Near Me](https://alieeb.github.io/sponsify/blog/google-maps-ranking-qatar.html): A step-by-step guide to setting up and improving your Google Business Profile so customers in Doha and across Qatar find you on Google Maps.
+- [7 Website Mistakes That Cost Qatar Businesses Customers (and How to Fix Them)](https://alieeb.github.io/sponsify/blog/website-mistakes-qatar-businesses.html): Slow pages, no Arabic, hidden contact details and more. The most common website mistakes we see in Qatar, and simple fixes for each.

@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 70" data-name="sponsify-logo-horizontal">
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <g transform="translate(4 -2) scale(0.82) rotate(-30 40 34)" stroke="var(--mark, #F2B424)" stroke-width="7">
+      <rect x="4" y="24" width="14" height="22" rx="2"/>
+      <path d="M18 20 H34 V50 H18 Z"/>
+      <path d="M34 20 L70 4 V66 L34 50"/>
+      <path d="M22 50 L26 64 H34 L32 50"/>
+    </g>
+    <g stroke="var(--mark, #F2B424)" stroke-width="5">
+      <path d="M70 12 L78 5"/><path d="M75 25 L86 23"/><path d="M75 38 L84 41"/>
+    </g>
+    <g transform="translate(106 15)" stroke="var(--word, #3A3F46)" stroke-width="6.2">
+      <path d="M28 3 H9 Q3 3 3 9 V14 Q3 20 9 20 H22 Q28 20 28 26 V31 Q28 37 22 37 H3"/>
+      <path transform="translate(38 0)" d="M3 37 V3 H22 Q28 3 28 9 V15 Q28 21 22 21 H3"/>
+      <path transform="translate(76 0)" d="M10 3 H21 Q28 3 28 10 V30 Q28 37 21 37 H10 Q3 37 3 30 V10 Q3 3 10 3 Z"/>
+      <path transform="translate(114 0)" d="M3 37 V3 L28 37 V3"/>
+      <path transform="translate(152 0)" d="M28 3 H9 Q3 3 3 9 V14 Q3 20 9 20 H22 Q28 20 28 26 V31 Q28 37 22 37 H3"/>
+      <path transform="translate(190 0)" d="M3 3 V37"/>
+      <path transform="translate(204 0)" d="M28 3 H3 V37 M3 20 H22"/>
+      <path transform="translate(242 0)" d="M3 3 L15.5 20 L28 3 M15.5 20 V37"/>
+    </g>
+  </g>
+</svg>
