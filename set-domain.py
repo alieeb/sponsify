@@ -4,7 +4,7 @@ import sys, pathlib
 if len(sys.argv) != 2 or not sys.argv[1].startswith("http"):
     sys.exit("usage: python set-domain.py https://www.yourdomain.com")
 url = sys.argv[1].rstrip("/")
-for p in pathlib.Path(__file__).parent.iterdir():
+for p in pathlib.Path(__file__).parent.rglob("*"):
     if p.suffix in {".html", ".xml", ".txt"} and p.is_file():
         t = p.read_text(encoding="utf-8")
         if "__SITE_URL__" in t:
