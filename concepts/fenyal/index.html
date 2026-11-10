@@ -203,6 +203,12 @@ html[lang="ar"] .alt::before{content:attr(data-en);font-family:"Geist",sans-seri
 .price small{font-size:11px;font-weight:500;color:var(--ink-3);margin-inline-end:4px;letter-spacing:.04em}
 .panel .spot>p{grid-column:2/-1;color:var(--ink-2);font-size:14.5px;margin-top:6px}
 .badge{grid-column:2/-1;justify-self:start;margin-top:10px;font-size:11.5px;font-weight:600;padding:3px 9px;border-radius:999px;color:#1a1205;background:var(--saffron)}
+.cat-h{grid-column:1/-1;margin-top:28px;font-size:22px;font-weight:700;letter-spacing:-.02em;color:var(--saffron)}
+html.js .cat-h{display:none}
+html:not(.js) .tabs-wrap,html:not(.js) .marquee{display:none}
+html:not(.motion) .day-track{flex-direction:column;width:auto;height:auto;overflow:visible}
+html:not(.motion) .panel-d{width:auto;height:auto;padding:72px max(var(--gutter),8vw)}
+html:not(.motion) .orb{display:none}
 .menu-note{margin-top:24px;color:var(--ink-3);font-size:14px}
 
 /* ---------- michelin: pinned zoom ---------- */
@@ -324,9 +330,9 @@ footer p{color:var(--ink-3);font-size:14px}
         <span lang="ar">دليل ميشلان الدوحة · Bib Gourmand</span>
       </a>
       <h1 lang="en"><span data-split>Qatari food for</span>
-        <span class="rotator" data-words="breakfast|lunch|dinner|late karak"></span></h1>
+        <span class="rotator" data-words="breakfast|lunch|dinner|late karak"><span class="in">breakfast</span></span></h1>
       <h1 lang="ar"><span data-split>أكل قطري</span>
-        <span class="rotator" data-words="للفطور|للغداء|للعشاء|لكرك آخر الليل"></span></h1>
+        <span class="rotator" data-words="للفطور|للغداء|للعشاء|لكرك آخر الليل"><span class="in">للفطور</span></span></h1>
       <p class="lede h-in" lang="en">Balaleet and foul in the morning. Chicken nashif and lamb kofta later on. Arabic coffee poured from the dallah all day, on Crystal Walk, Gewan Island.</p>
       <p class="lede h-in" lang="ar">بلاليط وفول في الصباح، نشيف دجاج وكفتة لحم بعدها، وقهوة عربية من الدلة طول اليوم، في كريستال ووك، جزيرة جيوان.</p>
       <div class="ctas h-in">
@@ -378,7 +384,7 @@ footer p{color:var(--ink-3);font-size:14px}
         <div class="chips"><span lang="en">Balaleet</span><span lang="en">Foul</span><span lang="en">Falafel</span><span lang="en">Arabic coffee</span>
           <span lang="ar">بلاليط</span><span lang="ar">فول</span><span lang="ar">فلافل</span><span lang="ar">قهوة عربية</span></div>
       </div>
-      <figure class="shot"><img src="img/eggs.webp" alt="Creamy eggs in a pan with toasted bread and honey at Fenyal" loading="lazy" decoding="async"><figcaption><span lang="en">Breakfast, slow and creamy</span><span lang="ar">فطور على مهل</span></figcaption></figure>
+      <figure class="shot"><img src="img/eggs.webp" alt="Creamy eggs in a pan with toasted bread and honey at Fenyal" decoding="async"><figcaption><span lang="en">Breakfast, slow and creamy</span><span lang="ar">فطور على مهل</span></figcaption></figure>
       </div>
       <div class="panel-d"><div class="box">
         <span class="time">15:00</span>
@@ -388,7 +394,7 @@ footer p{color:var(--ink-3);font-size:14px}
         <div class="chips"><span lang="en">Cheese Fatayer</span><span lang="en">Zaatar Hive</span><span lang="en">Karak</span>
           <span lang="ar">فطاير جبن</span><span lang="ar">خلية زعتر</span><span lang="ar">كرك</span></div>
       </div>
-      <figure class="shot"><img src="img/hive.webp" alt="A sesame honeycomb bun baked in a cast-iron pan at Fenyal" loading="lazy" decoding="async"><figcaption><span lang="en">Fresh from the oven</span><span lang="ar">طازج من الفرن</span></figcaption></figure>
+      <figure class="shot"><img src="img/hive.webp" alt="A sesame honeycomb bun baked in a cast-iron pan at Fenyal" decoding="async"><figcaption><span lang="en">Fresh from the oven</span><span lang="ar">طازج من الفرن</span></figcaption></figure>
       </div>
       <div class="panel-d"><div class="box">
         <span class="time">21:00</span>
@@ -398,7 +404,7 @@ footer p{color:var(--ink-3);font-size:14px}
         <div class="chips"><span lang="en">Chicken Nashif</span><span lang="en">Lamb Kofta</span><span lang="en">Saffron Elbah</span>
           <span lang="ar">نشيف دجاج</span><span lang="ar">كفتة لحم</span><span lang="ar">إلبة بالزعفران</span></div>
       </div>
-      <figure class="shot"><img src="img/grill.webp" alt="Grilled chicken on fresh bread with hummus and salad at Fenyal" loading="lazy" decoding="async"><figcaption><span lang="en">Grills on fresh bread, with hummus</span><span lang="ar">مشاوي على خبز طازج، مع حمص</span></figcaption></figure>
+      <figure class="shot"><img src="img/grill.webp" alt="Grilled chicken on fresh bread with hummus and salad at Fenyal" decoding="async"><figcaption><span lang="en">Grills on fresh bread, with hummus</span><span lang="ar">مشاوي على خبز طازج، مع حمص</span></figcaption></figure>
       </div>
     </div>
   </section>
@@ -412,7 +418,38 @@ footer p{color:var(--ink-3);font-size:14px}
       <div class="tabs-wrap">
         <div class="tabs" role="tablist" id="tabs"><span class="ind" aria-hidden="true"></span></div>
       </div>
-      <div class="panels" id="panels"></div>
+      <div class="panels" id="panels">
+        <div class="panel" id="p-breakfast">
+          <h3 class="cat-h"><span lang="en">Breakfast</span><span lang="ar">الفطور</span></h3>
+          <article class="spot tilt"><span class="no">01</span><h4><span lang="en">Balaleet</span><span lang="ar">بلاليط</span><span class="alt" data-en="Balaleet" data-ar="بلاليط"></span></h4><span class="price"><small>QAR</small>32</span><p lang="en">Sweet saffron vermicelli topped with a thin omelette. The Qatari breakfast.</p><p lang="ar">شعيرية حلوة بالزعفران يعلوها بيض. فطور قطري أصيل.</p></article>
+          <article class="spot tilt"><span class="no">02</span><h4><span lang="en">Foul</span><span lang="ar">فول</span><span class="alt" data-en="Foul" data-ar="فول"></span></h4><span class="price"></span><p lang="en">Slow-cooked fava beans with olive oil, served with fresh bread.</p><p lang="ar">فول مطبوخ على مهل مع زيت زيتون، يقدم مع خبز طازج.</p></article>
+          <article class="spot tilt"><span class="no">03</span><h4><span lang="en">Falafel</span><span lang="ar">فلافل</span><span class="alt" data-en="Falafel" data-ar="فلافل"></span></h4><span class="price"></span><p lang="en">Crisp outside, green inside, with tahini.</p><p lang="ar">مقرمشة من برا وخضراء من داخل، مع طحينة.</p></article>
+          <article class="spot tilt"><span class="no">04</span><h4><span lang="en">Oven bread</span><span lang="ar">خبز الفرن</span><span class="alt" data-en="Oven bread" data-ar="خبز الفرن"></span></h4><span class="price"></span><p lang="en">Baked fresh through the morning.</p><p lang="ar">ينخبز طازج طول الصباح.</p></article>
+        </div>
+        <div class="panel" id="p-savouries">
+          <h3 class="cat-h"><span lang="en">Fenyal Savouries</span><span lang="ar">مخبوزات فنيال</span></h3>
+          <article class="spot tilt"><span class="no">05</span><h4><span lang="en">Cheese Fatayer</span><span lang="ar">فطاير جبن</span><span class="alt" data-en="Cheese Fatayer" data-ar="فطاير جبن"></span></h4><span class="price"><small>QAR</small>25</span><p lang="en">Soft baked pastry filled with melted cheese.</p><p lang="ar">عجينة طرية مخبوزة محشية جبن ذايب.</p><span class="badge" lang="en">Popular</span><span class="badge" lang="ar">الأكثر طلباً</span></article>
+          <article class="spot tilt"><span class="no">06</span><h4><span lang="en">Zaatar Hive</span><span lang="ar">خلية زعتر</span><span class="alt" data-en="Zaatar Hive" data-ar="خلية زعتر"></span></h4><span class="price"><small>QAR</small>24</span><p lang="en">Pull-apart honeycomb buns with za&#x27;atar.</p><p lang="ar">خلية نحل طرية بالزعتر.</p></article>
+          <article class="spot tilt"><span class="no">07</span><h4><span lang="en">Spinach Hive</span><span lang="ar">خلية سبانخ</span><span class="alt" data-en="Spinach Hive" data-ar="خلية سبانخ"></span></h4><span class="price"><small>QAR</small>24</span><p lang="en">Pull-apart honeycomb buns filled with spinach.</p><p lang="ar">خلية نحل طرية محشية سبانخ.</p></article>
+          <article class="spot tilt"><span class="no">08</span><h4><span lang="en">Lamb Hive</span><span lang="ar">خلية لحم</span><span class="alt" data-en="Lamb Hive" data-ar="خلية لحم"></span></h4><span class="price"><small>QAR</small>28</span><p lang="en">Pull-apart honeycomb buns filled with spiced lamb.</p><p lang="ar">خلية نحل طرية محشية لحم متبل.</p></article>
+        </div>
+        <div class="panel" id="p-plates">
+          <h3 class="cat-h"><span lang="en">Plates</span><span lang="ar">الأطباق</span></h3>
+          <article class="spot tilt"><span class="no">09</span><h4><span lang="en">Chicken Nashif</span><span lang="ar">نشيف دجاج</span><span class="alt" data-en="Chicken Nashif" data-ar="نشيف دجاج"></span></h4><span class="price"></span><p lang="en">Chicken cooked down in spiced tomato until thick and rich.</p><p lang="ar">دجاج مطبوخ بصلصة طماط متبلة لين ما تثقل.</p></article>
+          <article class="spot tilt"><span class="no">10</span><h4><span lang="en">Lamb Kofta</span><span lang="ar">كفتة لحم</span><span class="alt" data-en="Lamb Kofta" data-ar="كفتة لحم"></span></h4><span class="price"></span><p lang="en">Grilled minced lamb with herbs and spice.</p><p lang="ar">لحم مفروم مشوي بالأعشاب والبهارات.</p></article>
+          <article class="spot tilt"><span class="no">11</span><h4><span lang="en">Ribs over Hummus</span><span lang="ar">ريش على حمص</span><span class="alt" data-en="Ribs over Hummus" data-ar="ريش على حمص"></span></h4><span class="price"></span><p lang="en">Tender ribs served on a bed of creamy hummus.</p><p lang="ar">ريش طرية تقدم على حمص كريمي.</p></article>
+        </div>
+        <div class="panel" id="p-sweet">
+          <h3 class="cat-h"><span lang="en">Sweet</span><span lang="ar">الحلى</span></h3>
+          <article class="spot tilt"><span class="no">12</span><h4><span lang="en">Saffron Elbah</span><span lang="ar">إلبة بالزعفران</span><span class="alt" data-en="Saffron Elbah" data-ar="إلبة بالزعفران"></span></h4><span class="price"></span><p lang="en">Baked saffron custard. The MICHELIN Guide&#x27;s pick to end the meal.</p><p lang="ar">كاسترد مخبوز بالزعفران، اختيار دليل ميشلان لختام الوجبة.</p></article>
+        </div>
+        <div class="panel" id="p-drinks">
+          <h3 class="cat-h"><span lang="en">Drinks</span><span lang="ar">المشروبات</span></h3>
+          <article class="spot tilt"><span class="no">13</span><h4><span lang="en">Arabic Coffee</span><span lang="ar">قهوة عربية</span><span class="alt" data-en="Arabic Coffee" data-ar="قهوة عربية"></span></h4><span class="price"></span><p lang="en">Cardamom and saffron, poured from the dallah.</p><p lang="ar">بالهيل والزعفران، تنصب من الدلة.</p></article>
+          <article class="spot tilt"><span class="no">14</span><h4><span lang="en">Karak</span><span lang="ar">كرك</span><span class="alt" data-en="Karak" data-ar="كرك"></span></h4><span class="price"></span><p lang="en">Strong spiced milk tea, made our way.</p><p lang="ar">شاي حليب ثقيل بالبهارات، على طريقتنا.</p></article>
+          <article class="spot tilt"><span class="no">15</span><h4><span lang="en">Fresh Juices</span><span lang="ar">عصائر طازجة</span><span class="alt" data-en="Fresh Juices" data-ar="عصائر طازجة"></span></h4><span class="price"></span><p lang="en">Pressed to order. Ask what&#x27;s in season.</p><p lang="ar">تنعصر عند الطلب. اسأل عن فاكهة الموسم.</p></article>
+        </div>
+      </div>
       <p class="menu-note" lang="en">Prices in Qatari riyals. Ask our team about allergies and today's specials.</p>
       <p class="menu-note" lang="ar">الأسعار بالريال القطري. اسأل فريقنا عن الحساسية وأطباق اليوم.</p>
     </div>
@@ -425,10 +462,10 @@ footer p{color:var(--ink-3);font-size:14px}
       <h2 lang="en" data-split>Straight from our tables.</h2>
       <h2 lang="ar" data-split>من سفرتنا مباشرة.</h2>
       <div class="gal">
-        <figure class="ph a"><img src="img/grill.webp" alt="Grilled chicken and skewers on fresh bread with hummus at Fenyal" loading="lazy" decoding="async"><figcaption><span lang="en">Grills on fresh bread, with hummus</span><span lang="ar">مشاوي على خبز طازج، مع حمص</span></figcaption></figure>
-        <figure class="ph b"><img src="img/eggs.webp" alt="Creamy eggs in a pan with toasted bread and honey at Fenyal" loading="lazy" decoding="async"><figcaption><span lang="en">Breakfast, slow and creamy</span><span lang="ar">فطور على مهل</span></figcaption></figure>
-        <figure class="ph c"><img src="img/hive.webp" alt="A sesame honeycomb bun baked in a cast-iron pan at Fenyal" loading="lazy" decoding="async"><figcaption><span lang="en">Fresh from the oven</span><span lang="ar">طازج من الفرن</span></figcaption></figure>
-        <figure class="ph d"><img src="img/kofta.webp" alt="Kofta platter and a breakfast tray with cheese, olives and honey at Fenyal" loading="lazy" decoding="async"><figcaption><span lang="en">Kofta and the breakfast tray</span><span lang="ar">كفتة وصينية الفطور</span></figcaption></figure>
+        <figure class="ph a"><img src="img/grill.webp" alt="Grilled chicken and skewers on fresh bread with hummus at Fenyal" decoding="async"><figcaption><span lang="en">Grills on fresh bread, with hummus</span><span lang="ar">مشاوي على خبز طازج، مع حمص</span></figcaption></figure>
+        <figure class="ph b"><img src="img/eggs.webp" alt="Creamy eggs in a pan with toasted bread and honey at Fenyal" decoding="async"><figcaption><span lang="en">Breakfast, slow and creamy</span><span lang="ar">فطور على مهل</span></figcaption></figure>
+        <figure class="ph c"><img src="img/hive.webp" alt="A sesame honeycomb bun baked in a cast-iron pan at Fenyal" decoding="async"><figcaption><span lang="en">Fresh from the oven</span><span lang="ar">طازج من الفرن</span></figcaption></figure>
+        <figure class="ph d"><img src="img/kofta.webp" alt="Kofta platter and a breakfast tray with cheese, olives and honey at Fenyal" decoding="async"><figcaption><span lang="en">Kofta and the breakfast tray</span><span lang="ar">كفتة وصينية الفطور</span></figcaption></figure>
       </div>
     </div>
   </section>
@@ -564,32 +601,18 @@ footer p{color:var(--ink-3);font-size:14px}
     } else { location.reload(); }
   });
 
-  /* ---------- build menu ---------- */
-  var tabs = $("#tabs"), panels = $("#panels"), n = 0;
-  MENU.forEach(function(cat, i){
+  /* ---------- menu: content is static HTML; turn it into tabs ---------- */
+  root.classList.add("js");
+  var tabs = $("#tabs"), panels = $("#panels");
+  $$(".panel", panels).forEach(function(p, i){
     var b = document.createElement("button");
-    b.type = "button"; b.setAttribute("role","tab"); b.id = "t-" + cat.id;
-    b.setAttribute("aria-controls", "p-" + cat.id);
+    b.type = "button"; b.setAttribute("role","tab"); b.id = "t-" + p.id.slice(2);
+    b.setAttribute("aria-controls", p.id);
     b.setAttribute("aria-selected", i === 0 ? "true" : "false");
-    b.textContent = cat[lang];
+    b.innerHTML = $(".cat-h", p).innerHTML;
     tabs.appendChild(b);
-    var html = "";
-    cat.items.forEach(function(it){
-      n++;
-      html += '<article class="spot tilt">' +
-        '<span class="no">' + String(n).padStart(2,"0") + '</span>' +
-        '<h4>' + esc(it[lang]) + '<span class="alt" data-en="' + esc(it.en) + '" data-ar="' + esc(it.ar) + '"></span></h4>' +
-        '<span class="price">' + (it.p ? '<small>QAR</small>' + it.p : '') + '</span>' +
-        '<p>' + esc(lang === "ar" ? it.dar : it.den) + '</p>' +
-        (it.pop ? '<span class="badge">' + (lang === "ar" ? "الأكثر طلباً" : "Popular") + '</span>' : '') +
-        '</article>';
-    });
-    var p = document.createElement("div");
-    p.className = "panel"; p.id = "p-" + cat.id; p.setAttribute("role","tabpanel");
-    p.setAttribute("aria-labelledby", b.id);
+    p.setAttribute("role","tabpanel"); p.setAttribute("aria-labelledby", b.id);
     if (i !== 0) p.hidden = true;
-    p.innerHTML = html;
-    panels.appendChild(p);
   });
   var ind = $(".ind", tabs);
   function moveInd(){
