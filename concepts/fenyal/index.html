@@ -2,15 +2,15 @@
 <html lang="en" dir="ltr">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <!-- Concept built by Sponsify for a pitch. Not an official Fenyal site: keep out of search until the client approves it. -->
 <meta name="robots" content="noindex, nofollow">
 <title>Fenyal · فنيال — Qatari Café, Gewan Island</title>
 <meta name="description" content="Fenyal is a Qatari café on Crystal Walk, Gewan Island, Doha, with a 2026 MICHELIN Guide Bib Gourmand. Balaleet, foul, chicken nashif, karak and Arabic coffee from morning to night.">
-<meta name="theme-color" content="#FFFFFF">
+<meta name="theme-color" content="#09090B">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;700&family=IBM+Plex+Sans+Arabic:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -26,168 +26,219 @@
 </script>
 <style>
 :root{
-  --bg:#FFFFFF; --bg-2:#F7F7F8; --ink:#111111; --ink-2:#5C5C62; --rule:#DADADF; --rule-strong:#111111;
-  --accent:#8A1538; --accent-ink:#FFFFFF;
-  --gutter:clamp(16px,4vw,48px); --max:1280px;
-  --font:"IBM Plex Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+  --bg:#09090B; --bg-2:#0F0F12; --card:#121216; --card-2:#17171C;
+  --ink:#FAFAFA; --ink-2:#A1A1AA; --ink-3:#71717A;
+  --border:rgba(255,255,255,.08); --border-2:rgba(255,255,255,.14);
+  --maroon:#8A1538; --maroon-2:#B01E4A; --saffron:#E8A33D;
+  --radius:18px; --gutter:clamp(16px,4vw,40px); --max:1200px;
+  --font:"Geist",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
 }
-html[lang="ar"]{ --font:"IBM Plex Sans Arabic","IBM Plex Sans",Tahoma,sans-serif; }
+html[lang="ar"]{--font:"IBM Plex Sans Arabic","Geist",system-ui,sans-serif}
 *{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
-body{background:var(--bg);color:var(--ink);font-family:var(--font);font-size:17px;line-height:1.55;overflow-x:hidden}
-a{color:inherit}
-img{max-width:100%}
-/* language switching: every bilingual string is written twice */
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;color-scheme:dark}
+body{background:var(--bg);color:var(--ink);font-family:var(--font);font-size:16px;line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit}
 html[lang="en"] [lang="ar"]:not(html){display:none!important}
 html[lang="ar"] [lang="en"]:not(html){display:none!important}
 .wrap{max-width:var(--max);margin:0 auto;padding:0 var(--gutter)}
-.grid{display:grid;grid-template-columns:repeat(12,1fr);column-gap:24px}
-.rule{border-top:1px solid var(--rule-strong)}
-.label{font-size:13px;font-weight:500;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-2)}
-html[lang="ar"] .label{letter-spacing:0;text-transform:none;font-size:14px}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:48px;padding:0 22px;font:500 16px/1 var(--font);text-decoration:none;border:1px solid var(--ink);background:var(--bg);color:var(--ink);cursor:pointer;transition:background .15s,color .15s}
-.btn:hover{background:var(--ink);color:var(--bg)}
-.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
-.btn.primary:hover{background:var(--ink);border-color:var(--ink)}
-:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+:focus-visible{outline:2px solid var(--saffron);outline-offset:3px;border-radius:8px}
 
-/* header */
-header{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.96);backdrop-filter:blur(6px);border-bottom:1px solid var(--rule)}
-.bar{display:flex;align-items:center;justify-content:space-between;gap:16px;height:68px}
-.mark{display:flex;align-items:baseline;gap:12px;text-decoration:none}
-.mark b{font-size:22px;font-weight:700;letter-spacing:.14em}
-.mark span{font-family:"IBM Plex Sans Arabic",sans-serif;font-size:20px;font-weight:700;color:var(--accent)}
-nav ul{display:flex;gap:28px;list-style:none}
-nav a{text-decoration:none;font-weight:500;font-size:15px}
-nav a:hover{color:var(--accent)}
-.tools{display:flex;gap:10px;align-items:center}
-.lang{min-height:40px;padding:0 14px;font-size:15px}
-.tools .btn.primary{min-height:40px;padding:0 16px;font-size:15px}
+/* ---------- buttons ---------- */
+.btn{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:8px;height:46px;padding:0 20px;border-radius:999px;font-weight:500;font-size:15px;border:1px solid var(--border-2);background:rgba(255,255,255,.03);cursor:pointer;transition:background .2s,border-color .2s,transform .2s}
+.btn:hover{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.24)}
+.btn:active{transform:scale(.98)}
+.btn svg{width:18px;height:18px;flex:none}
+/* shiny primary: moving sheen over maroon */
+.btn.shine{border:0;color:#fff;background:linear-gradient(180deg,var(--maroon-2),var(--maroon));box-shadow:0 0 0 1px rgba(255,255,255,.12) inset,0 8px 30px -8px rgba(176,30,74,.7);overflow:hidden;isolation:isolate}
+.btn.shine::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.35) 50%,transparent 70%);background-size:250% 100%;animation:sheen 3.2s ease-in-out infinite}
+.btn.shine:hover{background:linear-gradient(180deg,#C42756,var(--maroon-2))}
+@keyframes sheen{0%{background-position:150% 0}60%,100%{background-position:-100% 0}}
 
-/* hero */
-.hero{padding:clamp(48px,8vw,104px) 0 0}
-.hero .kicker{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:8px 24px;margin-bottom:28px}
-.hero h1{grid-column:1/span 10;font-size:clamp(44px,8.4vw,124px);line-height:.95;font-weight:700;letter-spacing:-.035em}
-html[lang="ar"] .hero h1{letter-spacing:0;line-height:1.15}
-.hero h1 em{font-style:normal;color:var(--accent)}
-.hero p.lede{grid-column:1/span 6;margin-top:32px;font-size:clamp(18px,1.6vw,22px);color:var(--ink-2);max-width:40ch}
-.hero .ctas{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:12px;margin-top:36px}
-.facts{margin-top:clamp(56px,8vw,96px);border-top:1px solid var(--rule-strong)}
-.facts .grid>div{grid-column:span 4;padding:24px 0 32px;border-inline-start:1px solid var(--rule);padding-inline-start:20px}
-.facts .grid>div:first-child{border-inline-start:0;padding-inline-start:0}
-.num{display:block;font-size:clamp(48px,6.4vw,88px);font-weight:700;line-height:1;letter-spacing:-.04em;font-variant-numeric:tabular-nums}
-.num.red{color:var(--accent)}
-.facts p{margin-top:12px;color:var(--ink-2);max-width:28ch}
+/* ---------- header: floating pill + limelight indicator ---------- */
+header{position:fixed;top:14px;left:0;right:0;z-index:40;pointer-events:none}
+.pill{pointer-events:auto;display:flex;align-items:center;justify-content:space-between;gap:12px;height:58px;padding:0 8px 0 18px;border:1px solid var(--border);border-radius:999px;background:rgba(15,15,18,.72);backdrop-filter:blur(14px) saturate(140%);-webkit-backdrop-filter:blur(14px) saturate(140%)}
+html[dir="rtl"] .pill{padding:0 18px 0 8px}
+.brand{display:flex;align-items:baseline;gap:10px}
+.brand b{font-weight:700;letter-spacing:.16em;font-size:16px}
+.brand span{font-family:"IBM Plex Sans Arabic",sans-serif;font-weight:700;color:var(--saffron);font-size:17px}
+.lime{position:relative;display:flex;gap:2px}
+.lime a{position:relative;z-index:1;padding:8px 14px;font-size:14px;color:var(--ink-2);border-radius:999px;transition:color .2s}
+.lime a.on,.lime a:hover{color:var(--ink)}
+.lime .light{position:absolute;top:-9px;height:3px;border-radius:0 0 4px 4px;background:var(--saffron);box-shadow:0 0 18px 4px rgba(232,163,61,.55);transition:left .35s cubic-bezier(.3,.7,.2,1),width .35s cubic-bezier(.3,.7,.2,1);pointer-events:none}
+.lime .light::after{content:"";position:absolute;left:-30%;right:-30%;top:3px;height:34px;background:linear-gradient(180deg,rgba(232,163,61,.18),transparent);clip-path:polygon(15% 0,85% 0,100% 100%,0 100%)}
+.tools{display:flex;gap:6px;align-items:center}
+.tools .btn{height:42px;padding:0 16px;font-size:14px}
 
-/* section scaffolding */
-section.block{padding:clamp(72px,10vw,128px) 0}
-.sec-head{grid-column:1/span 3;padding-top:20px}
-.sec-head .idx{display:block;font-size:56px;font-weight:700;line-height:1;color:var(--accent);letter-spacing:-.04em;margin-bottom:12px}
-.sec-body{grid-column:4/-1;padding-top:20px}
-h2{font-size:clamp(32px,4.4vw,60px);line-height:1.02;font-weight:700;letter-spacing:-.03em;max-width:18ch}
-html[lang="ar"] h2{letter-spacing:0;line-height:1.25}
+/* ---------- hero with animated background paths ---------- */
+.hero{position:relative;min-height:100svh;display:flex;align-items:center;overflow:hidden;padding:120px 0 72px;isolation:isolate}
+.paths{position:absolute;inset:0;z-index:-2;width:100%;height:100%;opacity:.9}
+.paths path{fill:none;stroke-linecap:round;stroke-dasharray:var(--len) var(--len);animation:flow var(--d) linear infinite}
+@keyframes flow{from{stroke-dashoffset:calc(var(--len) * 2)}to{stroke-dashoffset:0}}
+html[dir="rtl"] .paths{transform:scaleX(-1)}
+.hero::after{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(60% 55% at 50% 45%,transparent 0,var(--bg) 100%),linear-gradient(180deg,transparent 70%,var(--bg))}
+.hero-inner{text-align:center;max-width:980px;margin:0 auto}
+.announce{display:inline-flex;align-items:center;gap:10px;padding:6px 14px 6px 6px;border-radius:999px;border:1px solid var(--border-2);background:rgba(255,255,255,.04);font-size:13.5px;color:var(--ink-2);transition:border-color .2s}
+html[dir="rtl"] .announce{padding:6px 6px 6px 14px}
+.announce:hover{border-color:rgba(232,163,61,.5)}
+.announce b{padding:3px 10px;border-radius:999px;background:var(--saffron);color:#1a1205;font-weight:600;font-size:12px}
+h1{margin-top:28px;font-size:clamp(44px,8.2vw,108px);line-height:.98;font-weight:700;letter-spacing:-.045em}
+html[lang="ar"] h1{letter-spacing:0;line-height:1.2}
+.grad{background:linear-gradient(180deg,#fff 20%,#A1A1AA);-webkit-background-clip:text;background-clip:text;color:transparent}
+.rotator{display:block;position:relative;height:1.08em;overflow:hidden}
+html[lang="ar"] .rotator{height:1.3em}
+.rotator span{position:absolute;inset:0;display:flex;justify-content:center;color:var(--saffron);opacity:0;transform:translateY(100%);transition:transform .7s cubic-bezier(.2,.8,.2,1),opacity .7s}
+.rotator span.in{opacity:1;transform:translateY(0)}
+.rotator span.out{opacity:0;transform:translateY(-100%)}
+.lede{max-width:620px;margin:26px auto 0;font-size:clamp(16px,1.5vw,19px);color:var(--ink-2)}
+.ctas{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:36px}
+.ctas .btn{height:50px;padding:0 24px;font-size:15.5px}
 
-/* story */
-.story-cols{display:grid;grid-template-columns:1fr 1fr;gap:24px 48px;margin-top:40px}
-.story-cols p{color:var(--ink-2);font-size:18px}
-.day{margin-top:56px;border-top:1px solid var(--rule)}
-.day li{list-style:none;display:grid;grid-template-columns:140px 1fr;gap:24px;padding:20px 0;border-bottom:1px solid var(--rule)}
-.day li b{font-weight:700}
-.day li span{color:var(--ink-2)}
+/* ---------- stats ---------- */
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:-24px;position:relative;z-index:2}
+.stat{padding:26px 26px 24px;border-radius:var(--radius);border:1px solid var(--border);background:linear-gradient(180deg,var(--card),var(--bg-2))}
+.stat .v{display:block;font-size:clamp(40px,5vw,60px);font-weight:600;letter-spacing:-.04em;line-height:1;font-variant-numeric:tabular-nums}
+.stat .v.s{color:var(--saffron)}
+.stat p{margin-top:10px;color:var(--ink-2);font-size:14.5px}
 
-/* menu: the numbered grid */
-#menu{background:var(--bg-2)}
-.cats{position:sticky;top:68px;z-index:10;background:var(--bg-2);display:flex;gap:8px;overflow-x:auto;padding:16px 0;margin-top:40px;border-bottom:1px solid var(--rule-strong);scrollbar-width:none}
-.cats::-webkit-scrollbar{display:none}
-.cats a{flex:none;text-decoration:none;font-size:15px;font-weight:500;padding:8px 14px;border:1px solid var(--rule)}
-.cats a.on,.cats a:hover{background:var(--ink);color:var(--bg);border-color:var(--ink)}
-.cat{scroll-margin-top:140px;padding-top:48px}
-.cat-title{display:flex;align-items:baseline;justify-content:space-between;gap:16px;padding-bottom:14px;border-bottom:1px solid var(--rule-strong)}
-.cat-title h3{font-size:clamp(24px,2.6vw,34px);font-weight:700;letter-spacing:-.02em}
-html[lang="ar"] .cat-title h3{letter-spacing:0}
-.items{display:grid;grid-template-columns:1fr 1fr;column-gap:48px}
-.item{display:grid;grid-template-columns:56px 1fr auto;gap:0 16px;padding:22px 0;border-bottom:1px solid var(--rule)}
-.item .n{font-size:15px;font-weight:700;color:var(--accent);font-variant-numeric:tabular-nums;padding-top:4px}
-.item h4{font-size:20px;font-weight:700;line-height:1.3}
-.item h4 small{display:block;font-size:15px;font-weight:500;color:var(--ink-2);margin-top:2px}
-html[lang="en"] .item h4 .alt::before{content:attr(data-ar);font-family:"IBM Plex Sans Arabic",sans-serif}
-html[lang="ar"] .item h4 .alt::before{content:attr(data-en);font-family:"IBM Plex Sans",sans-serif}
-.item p{grid-column:2/3;color:var(--ink-2);font-size:16px;margin-top:6px}
-.item .price{grid-row:1;grid-column:3;font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap;padding-top:2px}
-.item .price small{font-size:12px;font-weight:500;color:var(--ink-2);margin-inline-end:4px}
-.tag{display:inline-block;margin-top:8px;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);border:1px solid var(--accent);padding:2px 6px}
-html[lang="ar"] .tag{letter-spacing:0;text-transform:none}
-.menu-note{margin-top:40px;color:var(--ink-2);font-size:15px}
+/* ---------- marquee ---------- */
+.marquee{margin-top:96px;border-block:1px solid var(--border);padding:22px 0;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
+.track{display:flex;width:max-content;animation:marq 38s linear infinite}
+html[dir="rtl"] .track{animation-direction:reverse}
+.track span{display:inline-flex;align-items:center;gap:28px;padding-inline-end:28px;font-size:clamp(22px,2.6vw,32px);font-weight:600;letter-spacing:-.02em;color:var(--ink-3);white-space:nowrap}
+.track span i{width:7px;height:7px;border-radius:50%;background:var(--saffron);display:inline-block;opacity:.8}
+.marquee:hover .track{animation-play-state:paused}
+@keyframes marq{to{transform:translateX(-50%)}}
 
-/* michelin */
-.award{background:var(--accent);color:var(--accent-ink)}
-.award .grid{align-items:end}
-.award .big{grid-column:1/-1;font-size:clamp(64px,12vw,184px);font-weight:700;line-height:.85;letter-spacing:-.05em}
-.award .copy{grid-column:7/-1;margin-top:48px}
-.award .copy p{font-size:20px;line-height:1.5}
-.award .label{color:rgba(255,255,255,.75)}
+/* ---------- sections ---------- */
+section.block{padding:clamp(80px,11vw,140px) 0 0}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:500;color:var(--saffron);padding:5px 12px;border:1px solid rgba(232,163,61,.3);border-radius:999px;background:rgba(232,163,61,.06)}
+h2{margin-top:18px;font-size:clamp(32px,4.6vw,58px);line-height:1.04;font-weight:700;letter-spacing:-.035em;max-width:18ch}
+html[lang="ar"] h2{letter-spacing:0;line-height:1.3}
+.sub{margin-top:16px;max-width:560px;color:var(--ink-2);font-size:17px}
 
-/* visit */
-.visit-grid{display:grid;grid-template-columns:repeat(3,1fr);margin-top:40px;border-top:1px solid var(--rule-strong)}
-.visit-grid>div{padding:24px 24px 28px 0;border-bottom:1px solid var(--rule)}
-html[dir="rtl"] .visit-grid>div{padding:24px 0 28px 24px}
-.visit-grid h3{font-size:13px;font-weight:500;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-2);margin-bottom:10px}
-html[lang="ar"] .visit-grid h3{text-transform:none;letter-spacing:0;font-size:14px}
-.visit-grid p{font-size:20px;font-weight:500}
-.visit-grid a{text-decoration:none;border-bottom:1px solid var(--accent)}
-.map{margin-top:40px;border:1px solid var(--rule-strong);aspect-ratio:16/7;width:100%;display:block;filter:grayscale(1)}
-.visit-ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}
+/* spotlight card: radial glow follows the cursor */
+.spot{position:relative;border-radius:var(--radius);border:1px solid var(--border);background:var(--card);overflow:hidden;isolation:isolate;transition:border-color .25s,transform .25s}
+.spot::before{content:"";position:absolute;inset:0;z-index:-1;opacity:0;transition:opacity .3s;background:radial-gradient(420px circle at var(--x,50%) var(--y,50%),rgba(232,163,61,.13),transparent 45%)}
+.spot::after{content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;opacity:0;transition:opacity .3s;background:radial-gradient(260px circle at var(--x,50%) var(--y,50%),rgba(232,163,61,.6),transparent 60%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none}
+.spot:hover::before,.spot:hover::after{opacity:1}
 
-/* footer */
-footer{border-top:1px solid var(--rule-strong);padding:40px 0 56px}
-footer .row{display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px;align-items:baseline}
-footer p{color:var(--ink-2);font-size:14px}
+/* story bento */
+.bento{display:grid;grid-template-columns:1.25fr 1fr 1fr;grid-auto-rows:minmax(220px,auto);gap:12px;margin-top:48px}
+.bento .spot{padding:28px;display:flex;flex-direction:column;justify-content:flex-end}
+.bento .lead{grid-row:span 2;justify-content:space-between;background:radial-gradient(120% 80% at 0% 0%,rgba(138,21,56,.45),transparent 60%),var(--card)}
+html[dir="rtl"] .bento .lead{background:radial-gradient(120% 80% at 100% 0%,rgba(138,21,56,.45),transparent 60%),var(--card)}
+.bento .lead p{font-size:18px;color:#D4D4D8;max-width:36ch}
+.bento .lead p+p{margin-top:14px}
+.cup{width:72px;height:72px;color:var(--saffron)}
+.bento .when{font-size:13px;font-weight:500;color:var(--saffron)}
+.bento h3{margin-top:8px;font-size:22px;font-weight:600;letter-spacing:-.02em}
+.bento .spot>p:not(.when){margin-top:8px;color:var(--ink-2);font-size:15px}
+.bento .wide{grid-column:span 2}
 
-/* mobile sticky booking bar */
+/* ---------- menu: animated tabs + spotlight items ---------- */
+.tabs-wrap{position:sticky;top:84px;z-index:20;margin-top:40px;padding:8px 0;background:linear-gradient(180deg,var(--bg) 70%,transparent)}
+.tabs{position:relative;display:inline-flex;gap:2px;padding:5px;border:1px solid var(--border);border-radius:999px;background:var(--bg-2);max-width:100%;overflow-x:auto;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tabs button{position:relative;z-index:1;flex:none;height:38px;padding:0 16px;border:0;background:none;border-radius:999px;font-size:14px;font-weight:500;color:var(--ink-2);cursor:pointer;transition:color .25s}
+.tabs button[aria-selected="true"]{color:#fff}
+.tabs .ind{position:absolute;top:5px;bottom:5px;border-radius:999px;background:linear-gradient(180deg,var(--maroon-2),var(--maroon));box-shadow:0 4px 20px -4px rgba(176,30,74,.8);transition:left .4s cubic-bezier(.3,.7,.2,1),width .4s cubic-bezier(.3,.7,.2,1)}
+.panel{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:20px}
+.panel[hidden]{display:none}
+.panel .spot{padding:22px 22px 20px;display:grid;grid-template-columns:auto 1fr auto;gap:2px 16px;align-items:start;animation:rise .5s cubic-bezier(.2,.8,.2,1) both}
+.panel .spot:nth-child(2){animation-delay:.05s}.panel .spot:nth-child(3){animation-delay:.1s}.panel .spot:nth-child(4){animation-delay:.15s}
+@keyframes rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.no{grid-row:span 3;width:38px;height:38px;border-radius:12px;display:grid;place-items:center;font-size:13px;font-weight:600;color:var(--saffron);background:rgba(232,163,61,.08);border:1px solid rgba(232,163,61,.2);font-variant-numeric:tabular-nums}
+.panel h4{font-size:18px;font-weight:600;letter-spacing:-.01em;line-height:1.35}
+.alt{display:block;font-size:14px;font-weight:400;color:var(--ink-3)}
+html[lang="en"] .alt::before{content:attr(data-ar);font-family:"IBM Plex Sans Arabic",sans-serif}
+html[lang="ar"] .alt::before{content:attr(data-en);font-family:"Geist",sans-serif}
+.price{font-weight:600;font-variant-numeric:tabular-nums;white-space:nowrap;font-size:17px}
+.price small{font-size:11px;font-weight:500;color:var(--ink-3);margin-inline-end:4px;letter-spacing:.04em}
+.panel .spot>p{grid-column:2/-1;color:var(--ink-2);font-size:14.5px;margin-top:6px}
+.badge{grid-column:2/-1;justify-self:start;margin-top:10px;font-size:11.5px;font-weight:600;padding:3px 9px;border-radius:999px;color:#1a1205;background:var(--saffron)}
+.menu-note{margin-top:24px;color:var(--ink-3);font-size:14px}
+
+/* ---------- michelin: card with travelling border beam ---------- */
+.award{position:relative;margin-top:24px;border-radius:28px;padding:1px;overflow:hidden}
+.award::before{content:"";position:absolute;inset:-60%;background:conic-gradient(from 0deg,transparent 0 70%,var(--saffron) 82%,var(--maroon-2) 90%,transparent 100%);animation:spin 6s linear infinite}
+@keyframes spin{to{transform:rotate(1turn)}}
+.award-in{position:relative;border-radius:27px;background:radial-gradient(90% 120% at 100% 100%,rgba(138,21,56,.55),transparent 60%),radial-gradient(60% 80% at 0% 0%,rgba(232,163,61,.12),transparent 60%),#0D0D10;padding:clamp(32px,6vw,72px);display:grid;grid-template-columns:1.2fr 1fr;gap:40px;align-items:end}
+.award-in .big{font-size:clamp(56px,9vw,128px);font-weight:700;letter-spacing:-.055em;line-height:.88}
+.award-in .big em{font-style:normal;color:var(--saffron)}
+.award-in p{color:#D4D4D8;font-size:18px}
+.award-in .eyebrow{margin-bottom:18px}
+
+/* ---------- visit ---------- */
+.visit{display:grid;grid-template-columns:1fr 1.4fr;gap:12px;margin-top:48px}
+.info{display:grid;gap:12px}
+.info .spot{padding:22px 24px;display:flex;gap:16px;align-items:flex-start}
+.ico{flex:none;width:42px;height:42px;border-radius:12px;display:grid;place-items:center;background:rgba(255,255,255,.04);border:1px solid var(--border)}
+.ico svg{width:20px;height:20px;color:var(--saffron)}
+.info h3{font-size:13px;font-weight:500;color:var(--ink-3)}
+.info p{font-size:17px;font-weight:500;margin-top:2px}
+.mapcard{padding:6px;min-height:340px;display:flex}
+.mapcard iframe{flex:1;width:100%;border:0;border-radius:14px;filter:grayscale(1) invert(.92) contrast(.9)}
+.visit-ctas{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
+
+/* ---------- final CTA + footer ---------- */
+.final{margin-top:clamp(80px,11vw,140px);text-align:center;padding:clamp(56px,8vw,96px) var(--gutter);border-radius:28px;border:1px solid var(--border);background:radial-gradient(70% 90% at 50% 0%,rgba(138,21,56,.5),transparent 70%),var(--bg-2)}
+.final h2{margin:0 auto}
+.final .ctas{margin-top:28px}
+footer{margin-top:72px;border-top:1px solid var(--border);padding:32px 0 48px}
+footer .row{display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px;align-items:center}
+footer p{color:var(--ink-3);font-size:14px}
+
+/* mobile dock */
 .dock{display:none}
 
-@media (max-width:900px){
-  nav{display:none}
-  .hero h1,.hero p.lede{grid-column:1/-1}
-  .sec-head,.sec-body{grid-column:1/-1}
-  .sec-head{display:flex;align-items:baseline;gap:16px}
-  .sec-head .idx{font-size:32px;margin:0}
-  .items{grid-template-columns:1fr}
-  .award .big,.award .copy{grid-column:1/-1}
-  .award .copy{margin-top:32px}
-  .visit-grid{grid-template-columns:1fr}
-  .story-cols{grid-template-columns:1fr}
-  .map{aspect-ratio:4/3}
+/* reveal on scroll */
+.rv{opacity:0;transform:translateY(18px);transition:opacity .7s cubic-bezier(.2,.8,.2,1),transform .7s cubic-bezier(.2,.8,.2,1)}
+.rv.seen{opacity:1;transform:none}
+
+@media (max-width:960px){
+  .lime{display:none}
+  .bento{grid-template-columns:1fr 1fr}
+  .bento .lead{grid-column:1/-1;grid-row:auto}
+  .panel{grid-template-columns:1fr}
+  .award-in{grid-template-columns:1fr}
+  .visit{grid-template-columns:1fr}
 }
 @media (max-width:640px){
-  body{font-size:16px;padding-bottom:76px}
-  .tools .btn.primary{display:none}
-  .facts .grid>div{grid-column:1/-1;border-inline-start:0;padding-inline-start:0;border-top:1px solid var(--rule)}
-  .facts .grid>div:first-child{border-top:0}
-  .day li{grid-template-columns:1fr;gap:4px}
-  .item{grid-template-columns:40px 1fr auto}
-  .dock{display:flex;gap:8px;position:fixed;inset:auto 0 0 0;z-index:30;padding:12px 16px calc(12px + env(safe-area-inset-bottom));background:var(--bg);border-top:1px solid var(--rule-strong)}
-  .dock .btn{flex:1;min-height:48px;padding:0 12px}
+  body{padding-bottom:84px}
+  header{top:10px}
+  .tools .btn.shine{display:none}
+  .stats{grid-template-columns:1fr;margin-top:0}
+  .bento{grid-template-columns:1fr}
+  .bento .wide{grid-column:auto}
+  .tabs-wrap{top:76px}
+  .dock{display:flex;gap:8px;position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom));z-index:50;padding:8px;border-radius:999px;border:1px solid var(--border-2);background:rgba(15,15,18,.85);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+  .dock .btn{flex:1;height:46px}
 }
-@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .rv{opacity:1;transform:none}
+}
 </style>
 </head>
 <body>
 
 <header>
-  <div class="wrap bar">
-    <a class="mark" href="#top" aria-label="Fenyal home"><b>FENYAL</b><span>فنيال</span></a>
-    <nav aria-label="Main">
-      <ul>
-        <li><a href="#story"><span lang="en">Story</span><span lang="ar">قصتنا</span></a></li>
-        <li><a href="#menu"><span lang="en">Menu</span><span lang="ar">المنيو</span></a></li>
-        <li><a href="#michelin"><span lang="en">Michelin</span><span lang="ar">ميشلان</span></a></li>
-        <li><a href="#visit"><span lang="en">Visit</span><span lang="ar">زورونا</span></a></li>
-      </ul>
-    </nav>
-    <div class="tools">
-      <button class="btn lang" id="langBtn" type="button" aria-label="Switch language"><span lang="en">العربية</span><span lang="ar">English</span></button>
-      <a class="btn primary wa" href="#" target="_blank" rel="noopener"><span lang="en">Book a table</span><span lang="ar">احجز طاولة</span></a>
+  <div class="wrap">
+    <div class="pill">
+      <a class="brand" href="#top" aria-label="Fenyal home"><b>FENYAL</b><span>فنيال</span></a>
+      <nav class="lime" aria-label="Main">
+        <span class="light" aria-hidden="true"></span>
+        <a href="#story"><span lang="en">Story</span><span lang="ar">قصتنا</span></a>
+        <a href="#menu"><span lang="en">Menu</span><span lang="ar">المنيو</span></a>
+        <a href="#michelin"><span lang="en">Michelin</span><span lang="ar">ميشلان</span></a>
+        <a href="#visit"><span lang="en">Visit</span><span lang="ar">زورونا</span></a>
+      </nav>
+      <div class="tools">
+        <button class="btn" id="langBtn" type="button" aria-label="Switch language"><span lang="en">العربية</span><span lang="ar">English</span></button>
+        <a class="btn shine wa" href="#" target="_blank" rel="noopener"><span lang="en">Book a table</span><span lang="ar">احجز طاولة</span></a>
+      </div>
     </div>
   </div>
 </header>
@@ -196,179 +247,143 @@ footer p{color:var(--ink-2);font-size:14px}
 
   <!-- HERO -->
   <section class="hero">
-    <div class="wrap grid">
-      <div class="kicker">
-        <span class="label" lang="en">Qatari café · Crystal Walk, Gewan Island, Doha</span>
-        <span class="label" lang="ar">مقهى قطري · كريستال ووك، جزيرة جيوان، الدوحة</span>
-      </div>
-      <h1 lang="en">Qatari food,<br>from first coffee<br>to <em>late dinner.</em></h1>
-      <h1 lang="ar">أكل قطري،<br>من أول فنجان قهوة<br>إلى <em>عشاء آخر الليل.</em></h1>
-      <p class="lede" lang="en">Balaleet and foul in the morning. Chicken nashif and lamb kofta later on. Arabic coffee poured from the dallah all day. Recognised with a Bib Gourmand in the 2026 MICHELIN Guide Doha.</p>
-      <p class="lede" lang="ar">بلاليط وفول في الصباح، نشيف دجاج وكفتة لحم بعدها، وقهوة عربية من الدلة طول اليوم. حاصل على تصنيف Bib Gourmand في دليل ميشلان الدوحة 2026.</p>
+    <svg class="paths" id="paths" viewBox="0 0 696 316" preserveAspectRatio="xMidYMid slice" aria-hidden="true"></svg>
+    <div class="wrap hero-inner">
+      <a class="announce" href="#michelin">
+        <b>2026</b>
+        <span lang="en">MICHELIN Guide Doha · Bib Gourmand</span>
+        <span lang="ar">دليل ميشلان الدوحة · Bib Gourmand</span>
+      </a>
+      <h1 lang="en"><span class="grad">Qatari food for</span>
+        <span class="rotator" data-words="breakfast|lunch|dinner|late karak"></span></h1>
+      <h1 lang="ar"><span class="grad">أكل قطري</span>
+        <span class="rotator" data-words="للفطور|للغداء|للعشاء|لكرك آخر الليل"></span></h1>
+      <p class="lede" lang="en">Balaleet and foul in the morning. Chicken nashif and lamb kofta later on. Arabic coffee poured from the dallah all day, on Crystal Walk, Gewan Island.</p>
+      <p class="lede" lang="ar">بلاليط وفول في الصباح، نشيف دجاج وكفتة لحم بعدها، وقهوة عربية من الدلة طول اليوم، في كريستال ووك، جزيرة جيوان.</p>
       <div class="ctas">
-        <a class="btn primary wa" href="#" target="_blank" rel="noopener"><span lang="en">Book on WhatsApp</span><span lang="ar">احجز عبر واتساب</span></a>
+        <a class="btn shine wa" href="#" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>
+          <span lang="en">Book on WhatsApp</span><span lang="ar">احجز عبر واتساب</span></a>
         <a class="btn" href="#menu"><span lang="en">See the menu</span><span lang="ar">شوف المنيو</span></a>
-      </div>
-    </div>
-    <div class="facts">
-      <div class="wrap grid">
-        <div>
-          <span class="num red">2026</span>
-          <p lang="en">Bib Gourmand, MICHELIN Guide Doha</p>
-          <p lang="ar">تصنيف Bib Gourmand، دليل ميشلان الدوحة</p>
-        </div>
-        <div>
-          <span class="num">8,782</span>
-          <p lang="en">Google reviews from our guests</p>
-          <p lang="ar">تقييم على جوجل من ضيوفنا</p>
-        </div>
-        <div>
-          <span class="num">07–23</span>
-          <p lang="en">Open daily, breakfast to dinner</p>
-          <p lang="ar">مفتوح يومياً، من الفطور إلى العشاء</p>
-        </div>
       </div>
     </div>
   </section>
 
+  <div class="wrap">
+    <div class="stats">
+      <div class="stat rv"><span class="v s" data-count="2026" data-plain="1">2026</span>
+        <p lang="en">Bib Gourmand, MICHELIN Guide Doha</p><p lang="ar">تصنيف Bib Gourmand، دليل ميشلان الدوحة</p></div>
+      <div class="stat rv"><span class="v" data-count="8782">8,782</span>
+        <p lang="en">Google reviews from our guests</p><p lang="ar">تقييم على جوجل من ضيوفنا</p></div>
+      <div class="stat rv"><span class="v" dir="ltr">7–11</span>
+        <p lang="en">Open daily, 7 am to 11 pm</p><p lang="ar">مفتوح يومياً، من 7 صباحاً إلى 11 مساءً</p></div>
+    </div>
+  </div>
+
+  <div class="marquee" aria-hidden="true">
+    <div class="track" id="track"></div>
+  </div>
+
   <!-- STORY -->
   <section class="block" id="story">
-    <div class="wrap grid rule">
-      <div class="sec-head"><span class="idx">01</span><span class="label" lang="en">Story</span><span class="label" lang="ar">قصتنا</span></div>
-      <div class="sec-body">
-        <h2 lang="en">The dishes Qatari homes grew up on, served all day.</h2>
-        <h2 lang="ar">الأطباق اللي تربّت عليها البيوت القطرية، طول اليوم.</h2>
-        <div class="story-cols">
-          <p lang="en">Fenyal is named after the small cup Arabic coffee is poured into. That cup sets the tone: simple, generous food, the way it is made at home, in a bright café on Gewan Island.</p>
-          <p lang="ar">اسم فنيال مأخوذ من الفنجان اللي تنصب فيه القهوة العربية. ومن هالفنجان تبدأ الفكرة: أكل بسيط وكريم، مثل ما ينطبخ في البيت، في مقهى منوّر على جزيرة جيوان.</p>
-          <p lang="en">The MICHELIN Guide's Bib Gourmand recognises good food at a fair price. For us it is a reminder to keep the classics honest: balaleet sweet and saffron-yellow, foul slow and rich, and karak strong.</p>
-          <p lang="ar">تصنيف Bib Gourmand من ميشلان يكرّم الأكل الطيب بسعر معقول. وبالنسبة لنا هو تذكير نحافظ على الأطباق الأصيلة: بلاليط حلو بالزعفران، فول مطبوخ على مهل، وكرك ثقيل.</p>
+    <div class="wrap">
+      <span class="eyebrow rv"><span lang="en">Our story</span><span lang="ar">قصتنا</span></span>
+      <h2 class="rv" lang="en">The dishes Qatari homes grew up on, served all day.</h2>
+      <h2 class="rv" lang="ar">الأطباق اللي تربّت عليها البيوت القطرية، طول اليوم.</h2>
+      <div class="bento">
+        <div class="spot lead rv">
+          <svg class="cup" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M14 26h36l-3 18a10 10 0 0 1-10 8H27a10 10 0 0 1-10-8z"/><path d="M22 58h20"/><path d="M26 18c0-4 4-4 4-8M34 18c0-4 4-4 4-8"/></svg>
+          <div>
+            <p lang="en">Fenyal is named after the small cup Arabic coffee is poured into. That cup sets the tone: simple, generous food, the way it is made at home.</p>
+            <p lang="ar">اسم فنيال مأخوذ من الفنجان اللي تنصب فيه القهوة العربية. ومن هالفنجان تبدأ الفكرة: أكل بسيط وكريم، مثل ما ينطبخ في البيت.</p>
+            <p lang="en">The MICHELIN Guide's Bib Gourmand recognises good food at a fair price. For us it is a reminder to keep the classics honest.</p>
+            <p lang="ar">تصنيف Bib Gourmand من ميشلان يكرّم الأكل الطيب بسعر معقول. وبالنسبة لنا هو تذكير نحافظ على الأطباق الأصيلة.</p>
+          </div>
         </div>
-        <ul class="day">
-          <li><b lang="en">Morning</b><b lang="ar">الصباح</b><span lang="en">Balaleet, foul, falafel, bread fresh from the oven, Arabic coffee</span><span lang="ar">بلاليط، فول، فلافل، خبز طازج من الفرن، قهوة عربية</span></li>
-          <li><b lang="en">Afternoon</b><b lang="ar">العصر</b><span lang="en">Fatayer and honeycomb hives, karak, fresh juices</span><span lang="ar">فطاير وخلية نحل، كرك، عصائر طازجة</span></li>
-          <li><b lang="en">Evening</b><b lang="ar">المساء</b><span lang="en">Chicken nashif, lamb kofta, ribs over hummus, saffron elbah to finish</span><span lang="ar">نشيف دجاج، كفتة لحم، ريش على حمص، وإلبة بالزعفران للختام</span></li>
-        </ul>
+        <div class="spot rv">
+          <p class="when" lang="en">Morning</p><p class="when" lang="ar">الصباح</p>
+          <h3 lang="en">Balaleet &amp; foul</h3><h3 lang="ar">بلاليط وفول</h3>
+          <p lang="en">Falafel, bread fresh from the oven, Arabic coffee.</p><p lang="ar">فلافل، خبز طازج من الفرن، قهوة عربية.</p>
+        </div>
+        <div class="spot rv">
+          <p class="when" lang="en">Afternoon</p><p class="when" lang="ar">العصر</p>
+          <h3 lang="en">Fatayer &amp; hives</h3><h3 lang="ar">فطاير وخلية نحل</h3>
+          <p lang="en">Karak, fresh juices, something warm from the oven.</p><p lang="ar">كرك، عصائر طازجة، وشي دافي من الفرن.</p>
+        </div>
+        <div class="spot wide rv">
+          <p class="when" lang="en">Evening</p><p class="when" lang="ar">المساء</p>
+          <h3 lang="en">Nashif, kofta &amp; ribs over hummus</h3><h3 lang="ar">نشيف، كفتة، وريش على حمص</h3>
+          <p lang="en">Then saffron elbah to finish.</p><p lang="ar">وإلبة بالزعفران للختام.</p>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- MENU -->
   <section class="block" id="menu">
-    <div class="wrap grid rule">
-      <div class="sec-head"><span class="idx">02</span><span class="label" lang="en">Menu</span><span class="label" lang="ar">المنيو</span></div>
-      <div class="sec-body">
-        <h2 lang="en">The menu</h2>
-        <h2 lang="ar">المنيو</h2>
-
-        <div class="cats" role="navigation" aria-label="Menu categories">
-          <a href="#c-breakfast"><span lang="en">Breakfast</span><span lang="ar">الفطور</span></a>
-          <a href="#c-savouries"><span lang="en">Fenyal Savouries</span><span lang="ar">مخبوزات فنيال</span></a>
-          <a href="#c-plates"><span lang="en">Plates</span><span lang="ar">الأطباق</span></a>
-          <a href="#c-sweet"><span lang="en">Sweet</span><span lang="ar">الحلى</span></a>
-          <a href="#c-drinks"><span lang="en">Drinks</span><span lang="ar">المشروبات</span></a>
-        </div>
-
-        <div class="cat" id="c-breakfast">
-          <div class="cat-title"><h3 lang="en">Breakfast</h3><h3 lang="ar">الفطور</h3><span class="label" lang="en">From 7 am</span><span class="label" lang="ar">من 7 صباحاً</span></div>
-          <div class="items">
-            <div class="item"><span class="n">01</span><h4><span lang="en">Balaleet</span><span lang="ar">بلاليط</span><small class="alt" data-ar="بلاليط" data-en="Balaleet"></small></h4><span class="price"><small>QAR</small>32</span>
-              <p lang="en">Sweet saffron vermicelli topped with a thin omelette. The Qatari breakfast.</p><p lang="ar">شعيرية حلوة بالزعفران يعلوها بيض. فطور قطري أصيل.</p></div>
-            <div class="item"><span class="n">02</span><h4><span lang="en">Foul</span><span lang="ar">فول</span><small class="alt" data-ar="فول" data-en="Foul"></small></h4><span class="price"></span>
-              <p lang="en">Slow-cooked fava beans, olive oil, served with fresh bread.</p><p lang="ar">فول مطبوخ على مهل مع زيت زيتون، يقدم مع خبز طازج.</p></div>
-            <div class="item"><span class="n">03</span><h4><span lang="en">Falafel</span><span lang="ar">فلافل</span><small class="alt" data-ar="فلافل" data-en="Falafel"></small></h4><span class="price"></span>
-              <p lang="en">Crisp outside, green inside, with tahini.</p><p lang="ar">مقرمشة من برا وخضراء من داخل، مع طحينة.</p></div>
-            <div class="item"><span class="n">04</span><h4><span lang="en">Oven bread</span><span lang="ar">خبز الفرن</span><small class="alt" data-ar="خبز الفرن" data-en="Oven bread"></small></h4><span class="price"></span>
-              <p lang="en">Baked fresh through the morning.</p><p lang="ar">ينخبز طازج طول الصباح.</p></div>
-          </div>
-        </div>
-
-        <div class="cat" id="c-savouries">
-          <div class="cat-title"><h3 lang="en">Fenyal Savouries</h3><h3 lang="ar">مخبوزات فنيال</h3></div>
-          <div class="items">
-            <div class="item"><span class="n">05</span><h4><span lang="en">Cheese Fatayer</span><span lang="ar">فطاير جبن</span><small class="alt" data-ar="فطاير جبن" data-en="Cheese Fatayer"></small></h4><span class="price"><small>QAR</small>25</span>
-              <p lang="en">Soft baked pastry filled with melted cheese.</p><p lang="ar">عجينة طرية مخبوزة محشية جبن ذايب.</p><span class="tag" lang="en">Popular</span><span class="tag" lang="ar">الأكثر طلباً</span></div>
-            <div class="item"><span class="n">06</span><h4><span lang="en">Zaatar Hive</span><span lang="ar">خلية زعتر</span><small class="alt" data-ar="خلية زعتر" data-en="Zaatar Hive"></small></h4><span class="price"><small>QAR</small>24</span>
-              <p lang="en">Pull-apart honeycomb buns with za'atar.</p><p lang="ar">خلية نحل طرية بالزعتر.</p></div>
-            <div class="item"><span class="n">07</span><h4><span lang="en">Spinach Hive</span><span lang="ar">خلية سبانخ</span><small class="alt" data-ar="خلية سبانخ" data-en="Spinach Hive"></small></h4><span class="price"><small>QAR</small>24</span>
-              <p lang="en">Pull-apart honeycomb buns filled with spinach.</p><p lang="ar">خلية نحل طرية محشية سبانخ.</p></div>
-            <div class="item"><span class="n">08</span><h4><span lang="en">Lamb Hive</span><span lang="ar">خلية لحم</span><small class="alt" data-ar="خلية لحم" data-en="Lamb Hive"></small></h4><span class="price"><small>QAR</small>28</span>
-              <p lang="en">Pull-apart honeycomb buns filled with spiced lamb.</p><p lang="ar">خلية نحل طرية محشية لحم متبل.</p></div>
-          </div>
-        </div>
-
-        <div class="cat" id="c-plates">
-          <div class="cat-title"><h3 lang="en">Plates</h3><h3 lang="ar">الأطباق</h3><span class="label" lang="en">Lunch &amp; dinner</span><span class="label" lang="ar">غداء وعشاء</span></div>
-          <div class="items">
-            <div class="item"><span class="n">09</span><h4><span lang="en">Chicken Nashif</span><span lang="ar">نشيف دجاج</span><small class="alt" data-ar="نشيف دجاج" data-en="Chicken Nashif"></small></h4><span class="price"></span>
-              <p lang="en">Chicken cooked down in spiced tomato until thick and rich.</p><p lang="ar">دجاج مطبوخ بصلصة طماط متبلة لين ما تثقل.</p></div>
-            <div class="item"><span class="n">10</span><h4><span lang="en">Lamb Kofta</span><span lang="ar">كفتة لحم</span><small class="alt" data-ar="كفتة لحم" data-en="Lamb Kofta"></small></h4><span class="price"></span>
-              <p lang="en">Grilled minced lamb with herbs and spice.</p><p lang="ar">لحم مفروم مشوي بالأعشاب والبهارات.</p></div>
-            <div class="item"><span class="n">11</span><h4><span lang="en">Ribs over Hummus</span><span lang="ar">ريش على حمص</span><small class="alt" data-ar="ريش على حمص" data-en="Ribs over Hummus"></small></h4><span class="price"></span>
-              <p lang="en">Tender ribs served on a bed of creamy hummus.</p><p lang="ar">ريش طرية تقدم على حمص كريمي.</p></div>
-          </div>
-        </div>
-
-        <div class="cat" id="c-sweet">
-          <div class="cat-title"><h3 lang="en">Sweet</h3><h3 lang="ar">الحلى</h3></div>
-          <div class="items">
-            <div class="item"><span class="n">12</span><h4><span lang="en">Saffron Elbah</span><span lang="ar">إلبة بالزعفران</span><small class="alt" data-ar="إلبة بالزعفران" data-en="Saffron Elbah"></small></h4><span class="price"></span>
-              <p lang="en">Baked saffron custard. The MICHELIN Guide's pick to end the meal.</p><p lang="ar">كاسترد مخبوز بالزعفران، اختيار دليل ميشلان لختام الوجبة.</p></div>
-          </div>
-        </div>
-
-        <div class="cat" id="c-drinks">
-          <div class="cat-title"><h3 lang="en">Drinks</h3><h3 lang="ar">المشروبات</h3></div>
-          <div class="items">
-            <div class="item"><span class="n">13</span><h4><span lang="en">Arabic Coffee</span><span lang="ar">قهوة عربية</span><small class="alt" data-ar="قهوة عربية" data-en="Arabic Coffee"></small></h4><span class="price"></span>
-              <p lang="en">Cardamom and saffron, poured from the dallah.</p><p lang="ar">بالهيل والزعفران، تنصب من الدلة.</p></div>
-            <div class="item"><span class="n">14</span><h4><span lang="en">Karak</span><span lang="ar">كرك</span><small class="alt" data-ar="كرك" data-en="Karak"></small></h4><span class="price"></span>
-              <p lang="en">Strong spiced milk tea, made our way.</p><p lang="ar">شاي حليب ثقيل بالبهارات، على طريقتنا.</p></div>
-            <div class="item"><span class="n">15</span><h4><span lang="en">Fresh Juices</span><span lang="ar">عصائر طازجة</span><small class="alt" data-ar="عصائر طازجة" data-en="Fresh Juices"></small></h4><span class="price"></span>
-              <p lang="en">Pressed to order. Ask what's in season.</p><p lang="ar">تنعصر عند الطلب. اسأل عن فاكهة الموسم.</p></div>
-          </div>
-        </div>
-
-        <p class="menu-note" lang="en">Prices in Qatari riyals. Ask our team about allergies and today's specials.</p>
-        <p class="menu-note" lang="ar">الأسعار بالريال القطري. اسأل فريقنا عن الحساسية وأطباق اليوم.</p>
+    <div class="wrap">
+      <span class="eyebrow rv"><span lang="en">Menu</span><span lang="ar">المنيو</span></span>
+      <h2 class="rv" lang="en">From the first coffee to the last karak.</h2>
+      <h2 class="rv" lang="ar">من أول فنجان قهوة إلى آخر كرك.</h2>
+      <div class="tabs-wrap">
+        <div class="tabs" role="tablist" id="tabs"><span class="ind" aria-hidden="true"></span></div>
       </div>
+      <div id="panels"></div>
+      <p class="menu-note" lang="en">Prices in Qatari riyals. Ask our team about allergies and today's specials.</p>
+      <p class="menu-note" lang="ar">الأسعار بالريال القطري. اسأل فريقنا عن الحساسية وأطباق اليوم.</p>
     </div>
   </section>
 
   <!-- MICHELIN -->
-  <section class="block award" id="michelin">
-    <div class="wrap grid">
-      <div class="big">Bib<br>Gourmand</div>
-      <div class="copy">
-        <span class="label" lang="en">MICHELIN Guide Doha · 2026</span>
-        <span class="label" lang="ar">دليل ميشلان الدوحة · 2026</span>
-        <p lang="en" style="margin-top:16px">The Bib Gourmand goes to restaurants serving good food at a fair price. Fenyal received it in the second edition of the MICHELIN Guide Doha, for Qatari classics cooked simply and well.</p>
-        <p lang="ar" style="margin-top:16px">تصنيف Bib Gourmand يُمنح للمطاعم اللي تقدم أكل طيب بسعر معقول. حصل عليه فنيال في الإصدار الثاني من دليل ميشلان الدوحة، على أطباق قطرية أصيلة مطبوخة ببساطة وإتقان.</p>
+  <section class="block" id="michelin">
+    <div class="wrap">
+      <div class="award rv">
+        <div class="award-in">
+          <div class="big">Bib<br><em>Gourmand</em></div>
+          <div>
+            <span class="eyebrow"><span lang="en">MICHELIN Guide Doha · 2026</span><span lang="ar">دليل ميشلان الدوحة · 2026</span></span>
+            <p lang="en">The Bib Gourmand goes to restaurants serving good food at a fair price. Fenyal received it in the second edition of the MICHELIN Guide Doha, for Qatari classics cooked simply and well.</p>
+            <p lang="ar">تصنيف Bib Gourmand يُمنح للمطاعم اللي تقدم أكل طيب بسعر معقول. حصل عليه فنيال في الإصدار الثاني من دليل ميشلان الدوحة، على أطباق قطرية أصيلة مطبوخة ببساطة وإتقان.</p>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- VISIT -->
   <section class="block" id="visit">
-    <div class="wrap grid rule">
-      <div class="sec-head"><span class="idx">03</span><span class="label" lang="en">Visit</span><span class="label" lang="ar">زورونا</span></div>
-      <div class="sec-body">
-        <h2 lang="en">Find us on Crystal Walk.</h2>
-        <h2 lang="ar">تلقانا في كريستال ووك.</h2>
-        <div class="visit-grid">
-          <div><h3 lang="en">Address</h3><h3 lang="ar">العنوان</h3>
-            <p lang="en">Crystal Walk, Gewan Island<br>Doha, Qatar</p><p lang="ar">كريستال ووك، جزيرة جيوان<br>الدوحة، قطر</p></div>
-          <div><h3 lang="en">Hours</h3><h3 lang="ar">ساعات العمل</h3>
-            <p lang="en">Daily<br>7:00 am – 11:00 pm</p><p lang="ar">يومياً<br>7:00 صباحاً – 11:00 مساءً</p></div>
-          <div><h3 lang="en">Reservations</h3><h3 lang="ar">الحجوزات</h3>
-            <p><a href="tel:+97470813711" dir="ltr">+974 7081 3711</a></p></div>
+    <div class="wrap">
+      <span class="eyebrow rv"><span lang="en">Visit</span><span lang="ar">زورونا</span></span>
+      <h2 class="rv" lang="en">Find us on Crystal Walk.</h2>
+      <h2 class="rv" lang="ar">تلقانا في كريستال ووك.</h2>
+      <div class="visit">
+        <div class="info">
+          <div class="spot rv"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg></span>
+            <div><h3 lang="en">Address</h3><h3 lang="ar">العنوان</h3><p lang="en">Crystal Walk, Gewan Island, Doha</p><p lang="ar">كريستال ووك، جزيرة جيوان، الدوحة</p></div></div>
+          <div class="spot rv"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></span>
+            <div><h3 lang="en">Hours</h3><h3 lang="ar">ساعات العمل</h3><p lang="en">Daily, 7:00 am – 11:00 pm</p><p lang="ar">يومياً، 7:00 صباحاً – 11:00 مساءً</p></div></div>
+          <div class="spot rv"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2Z"/></svg></span>
+            <div><h3 lang="en">Reservations</h3><h3 lang="ar">الحجوزات</h3><p><a href="tel:+97470813711" dir="ltr">+974 7081 3711</a></p></div></div>
+          <div class="visit-ctas">
+            <a class="btn shine wa" href="#" target="_blank" rel="noopener"><span lang="en">Book on WhatsApp</span><span lang="ar">احجز عبر واتساب</span></a>
+            <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Fenyal%20Gewan%20Island%20Doha" target="_blank" rel="noopener"><span lang="en">Get directions</span><span lang="ar">الاتجاهات</span></a>
+          </div>
         </div>
-        <iframe class="map" title="Map: Fenyal, Gewan Island" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
-          src="https://maps.google.com/maps?q=Fenyal%2C%20Crystal%20Walk%2C%20Gewan%20Island%2C%20Doha&z=15&output=embed"></iframe>
-        <div class="visit-ctas">
-          <a class="btn primary wa" href="#" target="_blank" rel="noopener"><span lang="en">Book on WhatsApp</span><span lang="ar">احجز عبر واتساب</span></a>
-          <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Fenyal%20Gewan%20Island%20Doha" target="_blank" rel="noopener"><span lang="en">Get directions</span><span lang="ar">الاتجاهات</span></a>
-          <a class="btn" href="tel:+97470813711"><span lang="en">Call</span><span lang="ar">اتصال</span></a>
+        <div class="spot mapcard rv">
+          <iframe title="Map: Fenyal, Gewan Island" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+            src="https://maps.google.com/maps?q=Fenyal%2C%20Crystal%20Walk%2C%20Gewan%20Island%2C%20Doha&z=15&output=embed"></iframe>
+        </div>
+      </div>
+
+      <div class="final rv">
+        <h2 lang="en">Your table is waiting.</h2>
+        <h2 lang="ar">طاولتك بانتظارك.</h2>
+        <p class="sub" style="margin-inline:auto" lang="en">Send us the date, time and number of guests on WhatsApp.</p>
+        <p class="sub" style="margin-inline:auto" lang="ar">أرسل لنا التاريخ والوقت وعدد الأشخاص على واتساب.</p>
+        <div class="ctas">
+          <a class="btn shine wa" href="#" target="_blank" rel="noopener"><span lang="en">Book on WhatsApp</span><span lang="ar">احجز عبر واتساب</span></a>
+          <a class="btn" href="tel:+97470813711"><span lang="en">Call us</span><span lang="ar">اتصل بنا</span></a>
         </div>
       </div>
     </div>
@@ -377,14 +392,14 @@ footer p{color:var(--ink-2);font-size:14px}
 
 <footer>
   <div class="wrap row">
-    <a class="mark" href="#top"><b>FENYAL</b><span>فنيال</span></a>
+    <a class="brand" href="#top"><b>FENYAL</b><span>فنيال</span></a>
     <p lang="en">Qatari café · Crystal Walk, Gewan Island, Doha · <span dir="ltr">+974 7081 3711</span></p>
     <p lang="ar">مقهى قطري · كريستال ووك، جزيرة جيوان، الدوحة · <span dir="ltr">+974 7081 3711</span></p>
   </div>
 </footer>
 
 <div class="dock">
-  <a class="btn primary wa" href="#" target="_blank" rel="noopener"><span lang="en">Book a table</span><span lang="ar">احجز طاولة</span></a>
+  <a class="btn shine wa" href="#" target="_blank" rel="noopener"><span lang="en">Book a table</span><span lang="ar">احجز طاولة</span></a>
   <a class="btn" href="#menu"><span lang="en">Menu</span><span lang="ar">المنيو</span></a>
 </div>
 
@@ -395,41 +410,203 @@ footer p{color:var(--ink-2);font-size:14px}
     en: "Hello Fenyal, I'd like to book a table. Date: ___ Time: ___ Guests: ___",
     ar: "مرحباً فنيال، حاب أحجز طاولة. التاريخ: ___ الوقت: ___ عدد الأشخاص: ___"
   };
-  var root = document.documentElement;
 
+  /* Menu data. Prices only where confirmed from Fenyal's online menu. */
+  var MENU = [
+    { id:"breakfast", en:"Breakfast", ar:"الفطور", items:[
+      { en:"Balaleet", ar:"بلاليط", p:32, den:"Sweet saffron vermicelli topped with a thin omelette. The Qatari breakfast.", dar:"شعيرية حلوة بالزعفران يعلوها بيض. فطور قطري أصيل." },
+      { en:"Foul", ar:"فول", den:"Slow-cooked fava beans with olive oil, served with fresh bread.", dar:"فول مطبوخ على مهل مع زيت زيتون، يقدم مع خبز طازج." },
+      { en:"Falafel", ar:"فلافل", den:"Crisp outside, green inside, with tahini.", dar:"مقرمشة من برا وخضراء من داخل، مع طحينة." },
+      { en:"Oven bread", ar:"خبز الفرن", den:"Baked fresh through the morning.", dar:"ينخبز طازج طول الصباح." } ]},
+    { id:"savouries", en:"Fenyal Savouries", ar:"مخبوزات فنيال", items:[
+      { en:"Cheese Fatayer", ar:"فطاير جبن", p:25, pop:true, den:"Soft baked pastry filled with melted cheese.", dar:"عجينة طرية مخبوزة محشية جبن ذايب." },
+      { en:"Zaatar Hive", ar:"خلية زعتر", p:24, den:"Pull-apart honeycomb buns with za'atar.", dar:"خلية نحل طرية بالزعتر." },
+      { en:"Spinach Hive", ar:"خلية سبانخ", p:24, den:"Pull-apart honeycomb buns filled with spinach.", dar:"خلية نحل طرية محشية سبانخ." },
+      { en:"Lamb Hive", ar:"خلية لحم", p:28, den:"Pull-apart honeycomb buns filled with spiced lamb.", dar:"خلية نحل طرية محشية لحم متبل." } ]},
+    { id:"plates", en:"Plates", ar:"الأطباق", items:[
+      { en:"Chicken Nashif", ar:"نشيف دجاج", den:"Chicken cooked down in spiced tomato until thick and rich.", dar:"دجاج مطبوخ بصلصة طماط متبلة لين ما تثقل." },
+      { en:"Lamb Kofta", ar:"كفتة لحم", den:"Grilled minced lamb with herbs and spice.", dar:"لحم مفروم مشوي بالأعشاب والبهارات." },
+      { en:"Ribs over Hummus", ar:"ريش على حمص", den:"Tender ribs served on a bed of creamy hummus.", dar:"ريش طرية تقدم على حمص كريمي." } ]},
+    { id:"sweet", en:"Sweet", ar:"الحلى", items:[
+      { en:"Saffron Elbah", ar:"إلبة بالزعفران", den:"Baked saffron custard. The MICHELIN Guide's pick to end the meal.", dar:"كاسترد مخبوز بالزعفران، اختيار دليل ميشلان لختام الوجبة." } ]},
+    { id:"drinks", en:"Drinks", ar:"المشروبات", items:[
+      { en:"Arabic Coffee", ar:"قهوة عربية", den:"Cardamom and saffron, poured from the dallah.", dar:"بالهيل والزعفران، تنصب من الدلة." },
+      { en:"Karak", ar:"كرك", den:"Strong spiced milk tea, made our way.", dar:"شاي حليب ثقيل بالبهارات، على طريقتنا." },
+      { en:"Fresh Juices", ar:"عصائر طازجة", den:"Pressed to order. Ask what's in season.", dar:"تنعصر عند الطلب. اسأل عن فاكهة الموسم." } ]}
+  ];
+
+  function esc(s){ return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];}); }
+
+  /* build tabs + panels */
+  var tabs = document.getElementById("tabs"), panels = document.getElementById("panels"), n = 0;
+  MENU.forEach(function(cat, i){
+    var b = document.createElement("button");
+    b.type = "button"; b.role = "tab"; b.id = "t-" + cat.id;
+    b.setAttribute("aria-controls", "p-" + cat.id);
+    b.setAttribute("aria-selected", i === 0 ? "true" : "false");
+    b.innerHTML = '<span lang="en">' + esc(cat.en) + '</span><span lang="ar">' + esc(cat.ar) + '</span>';
+    tabs.appendChild(b);
+    var html = "";
+    cat.items.forEach(function(it){
+      n++;
+      html += '<article class="spot">' +
+        '<span class="no">' + String(n).padStart(2,"0") + '</span>' +
+        '<h4><span lang="en">' + esc(it.en) + '</span><span lang="ar">' + esc(it.ar) + '</span>' +
+        '<span class="alt" data-en="' + esc(it.en) + '" data-ar="' + esc(it.ar) + '"></span></h4>' +
+        '<span class="price">' + (it.p ? '<small>QAR</small>' + it.p : '') + '</span>' +
+        '<p lang="en">' + esc(it.den) + '</p><p lang="ar">' + esc(it.dar) + '</p>' +
+        (it.pop ? '<span class="badge" lang="en">Popular</span><span class="badge" lang="ar">الأكثر طلباً</span>' : '') +
+        '</article>';
+    });
+    var p = document.createElement("div");
+    p.className = "panel"; p.id = "p-" + cat.id; p.role = "tabpanel";
+    p.setAttribute("aria-labelledby", b.id);
+    if (i !== 0) p.hidden = true;
+    p.innerHTML = html;
+    panels.appendChild(p);
+  });
+
+  var ind = tabs.querySelector(".ind");
+  function moveInd(){
+    var on = tabs.querySelector('[aria-selected="true"]');
+    if (!on) return;
+    ind.style.left = on.offsetLeft + "px";
+    ind.style.width = on.offsetWidth + "px";
+  }
+  tabs.addEventListener("click", function(e){
+    var b = e.target.closest("button"); if (!b) return;
+    tabs.querySelectorAll("button").forEach(function(x){ x.setAttribute("aria-selected", x === b ? "true" : "false"); });
+    panels.querySelectorAll(".panel").forEach(function(p){ p.hidden = p.id !== b.getAttribute("aria-controls"); });
+    moveInd();
+    b.scrollIntoView({ block:"nearest", inline:"center", behavior:"smooth" });
+  });
+
+  /* marquee of dish names */
+  var track = document.getElementById("track");
+  function fillMarquee(lang){
+    var names = [];
+    MENU.forEach(function(c){ c.items.forEach(function(it){ names.push(it[lang]); }); });
+    var chunk = names.map(function(s){ return '<span>' + esc(s) + '<i></i></span>'; }).join("");
+    track.innerHTML = chunk + chunk;
+  }
+
+  /* animated background paths (inspired by 21st.dev "background paths") */
+  var svg = document.getElementById("paths"), NS = "http://www.w3.org/2000/svg";
+  [1,-1].forEach(function(pos){
+    for (var i = 0; i < 36; i++){
+      var d = "M-" + (380 - i*5*pos) + " -" + (189 + i*6) + "C-" + (380 - i*5*pos) + " -" + (189 + i*6) + " -" + (312 - i*5*pos) + " " + (216 - i*6) + " " + (152 - i*5*pos) + " " + (343 - i*6) + "C" + (616 - i*5*pos) + " " + (470 - i*6) + " " + (684 - i*5*pos) + " " + (875 - i*6) + " " + (684 - i*5*pos) + " " + (875 - i*6);
+      var p = document.createElementNS(NS, "path");
+      p.setAttribute("d", d);
+      var warm = pos > 0;
+      p.setAttribute("stroke", warm ? "rgba(232,163,61," + (0.05 + i*0.012).toFixed(3) + ")" : "rgba(176,30,74," + (0.06 + i*0.014).toFixed(3) + ")");
+      p.setAttribute("stroke-width", (0.5 + i*0.03).toFixed(2));
+      svg.appendChild(p);
+      var len = p.getTotalLength();
+      p.style.setProperty("--len", len.toFixed(0));
+      p.style.setProperty("--d", (18 + (i*7 % 13)) + "s");
+      p.style.animationDelay = (-(i*1.3)) + "s";
+    }
+  });
+
+  /* rotating hero word */
+  var timers = [];
+  function startRotators(){
+    timers.forEach(clearInterval); timers = [];
+    document.querySelectorAll("h1:not([hidden]) .rotator, .rotator").forEach(function(r){
+      if (r.dataset.built) return;
+      r.dataset.built = "1";
+      r.innerHTML = r.dataset.words.split("|").map(function(w){ return "<span>" + esc(w) + "</span>"; }).join("");
+    });
+    document.querySelectorAll(".rotator").forEach(function(r){
+      var s = r.children, k = 0;
+      Array.prototype.forEach.call(s, function(x){ x.className = ""; });
+      s[0].className = "in";
+      timers.push(setInterval(function(){
+        s[k].className = "out";
+        var prev = k; k = (k + 1) % s.length;
+        s[k].className = "in";
+        setTimeout(function(){ if (s[prev].className === "out") s[prev].className = ""; }, 700);
+      }, 2400));
+    });
+  }
+
+  /* limelight nav */
+  var lime = document.querySelector(".lime"), light = lime.querySelector(".light"), navLinks = lime.querySelectorAll("a");
+  function moveLight(a){
+    if (!a) { light.style.width = "0px"; return; }
+    light.style.left = (a.offsetLeft + a.offsetWidth*0.2) + "px";
+    light.style.width = (a.offsetWidth*0.6) + "px";
+  }
+  var current = null;
+  if ("IntersectionObserver" in window){
+    var secIO = new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if (e.isIntersecting){
+          navLinks.forEach(function(a){ a.classList.toggle("on", a.getAttribute("href") === "#" + e.target.id); });
+          current = lime.querySelector("a.on"); moveLight(current);
+        }
+      });
+    }, { rootMargin:"-45% 0px -50% 0px" });
+    ["story","menu","michelin","visit"].forEach(function(id){ secIO.observe(document.getElementById(id)); });
+  }
+  navLinks.forEach(function(a){
+    a.addEventListener("mouseenter", function(){ moveLight(a); });
+  });
+  lime.addEventListener("mouseleave", function(){ moveLight(current); });
+
+  /* spotlight cards */
+  document.addEventListener("pointermove", function(e){
+    var c = e.target.closest && e.target.closest(".spot"); if (!c) return;
+    var r = c.getBoundingClientRect();
+    c.style.setProperty("--x", (e.clientX - r.left) + "px");
+    c.style.setProperty("--y", (e.clientY - r.top) + "px");
+  });
+
+  /* reveal + count-up */
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function countUp(el){
+    var to = +el.dataset.count, plain = el.dataset.plain, t0 = null;
+    if (reduce) return;
+    function step(t){
+      if (!t0) t0 = t;
+      var k = Math.min(1, (t - t0) / 1400), v = Math.round(to * (1 - Math.pow(1 - k, 3)));
+      el.textContent = plain ? v : v.toLocaleString("en-US");
+      if (k < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+  if ("IntersectionObserver" in window){
+    var rv = new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if (!e.isIntersecting) return;
+        e.target.classList.add("seen");
+        var c = e.target.querySelector("[data-count]"); if (c) countUp(c);
+        rv.unobserve(e.target);
+      });
+    }, { threshold:.15 });
+    document.querySelectorAll(".rv").forEach(function(el){ rv.observe(el); });
+  } else {
+    document.querySelectorAll(".rv").forEach(function(el){ el.classList.add("seen"); });
+  }
+
+  /* language */
+  var root = document.documentElement;
   function setLang(l){
-    root.lang = l;
-    root.dir = l === "ar" ? "rtl" : "ltr";
+    root.lang = l; root.dir = l === "ar" ? "rtl" : "ltr";
     document.querySelectorAll("a.wa").forEach(function(a){
       a.href = "https://wa.me/" + PHONE + "?text=" + encodeURIComponent(MSG[l]);
     });
+    fillMarquee(l);
+    startRotators();
+    requestAnimationFrame(function(){ moveInd(); moveLight(current); });
     try { localStorage.setItem("fenyal-lang", l); } catch(e) {}
   }
-
   var saved = null;
   try { saved = localStorage.getItem("fenyal-lang"); } catch(e) {}
-  var initial = saved || ((navigator.language || "").slice(0,2) === "ar" ? "ar" : "en");
-  setLang(initial);
-
-  document.getElementById("langBtn").addEventListener("click", function(){
-    setLang(root.lang === "ar" ? "en" : "ar");
-  });
-
-  // highlight the menu category in view
-  var links = Array.prototype.slice.call(document.querySelectorAll(".cats a"));
-  var map = {};
-  links.forEach(function(a){ map[a.getAttribute("href").slice(1)] = a; });
-  if ("IntersectionObserver" in window) {
-    var io = new IntersectionObserver(function(entries){
-      entries.forEach(function(en){
-        if (en.isIntersecting) {
-          links.forEach(function(a){ a.classList.remove("on"); });
-          var a = map[en.target.id]; if (a) { a.classList.add("on"); }
-        }
-      });
-    }, { rootMargin: "-45% 0px -50% 0px" });
-    document.querySelectorAll(".cat").forEach(function(c){ io.observe(c); });
-  }
+  setLang(saved || ((navigator.language || "").slice(0,2) === "ar" ? "ar" : "en"));
+  document.getElementById("langBtn").addEventListener("click", function(){ setLang(root.lang === "ar" ? "en" : "ar"); });
+  window.addEventListener("resize", function(){ moveInd(); moveLight(current); });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(function(){ moveInd(); moveLight(current); });
 })();
 </script>
 </body>
