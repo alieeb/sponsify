@@ -19,6 +19,33 @@ export const SITE = {
   updated: "10 November 2026",
 };
 
+/**
+ * The live address of the site, e.g. "https://www.fenyalqatar.com".
+ * Set NEXT_PUBLIC_SITE_URL when building for the real domain. While it is empty the site stays
+ * hidden from Google (noindex + robots.txt disallow), which is right for previews and pitches.
+ */
+/**
+ * Folder the site is served from, e.g. "/sponsify/fenyal-site" on GitHub Pages. Empty on its own domain.
+ * next/link adds it to links automatically; asset() adds it to image paths.
+ */
+export const BASE_PATH = (process.env.NEXT_PUBLIC_BASE_PATH ?? "").replace(/\/$/, "");
+export function asset(path: string) {
+  return `${BASE_PATH}${path}`;
+}
+
+export const SITE_URL =(process.env.NEXT_PUBLIC_SITE_URL ?? "").replace(/\/$/, "");
+export const INDEXABLE = SITE_URL.startsWith("https://");
+
+export const PAGES = [
+  { path: "/", priority: 1 },
+  { path: "/menu/", priority: 0.9 },
+  { path: "/reservations/", priority: 0.9 },
+  { path: "/about/", priority: 0.7 },
+  { path: "/contact/", priority: 0.7 },
+  { path: "/privacy/", priority: 0.2 },
+  { path: "/terms/", priority: 0.2 },
+];
+
 export function whatsappLink(text: string) {
   return `https://wa.me/${SITE.whatsapp}?text=${encodeURIComponent(text)}`;
 }

@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { PageHero, SectionHeading } from "@/components/site/page-hero";
 import { Reveal } from "@/components/site/reveal";
-import { SITE } from "@/lib/site";
+import { SITE, asset } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Our Story",
@@ -37,7 +37,7 @@ export default function AboutPage() {
           {DAY.map((d, i) => (
             <div key={d.time} className="grid items-center gap-10 md:grid-cols-2 md:gap-20">
               <Reveal className={`relative aspect-[4/3] overflow-hidden rounded-[2rem] ${i % 2 ? "md:order-2" : ""}`}>
-                <Image src={d.image} alt="" fill sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" />
+                <Image src={asset(d.image)} alt="" fill sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" />
               </Reveal>
               <Reveal delay={150}>
                 <p className="font-serif text-7xl font-light text-transparent [-webkit-text-stroke:1px_var(--color-gold)] sm:text-8xl">{d.time}</p>

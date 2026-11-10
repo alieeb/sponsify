@@ -4,7 +4,7 @@ import { ArrowRight, Clock, MapPin, Phone } from "lucide-react";
 import FenyalConveyor from "@/components/fenyal-conveyor";
 import { Reveal } from "@/components/site/reveal";
 import { SectionHeading } from "@/components/site/page-hero";
-import { SITE } from "@/lib/site";
+import { SITE, asset } from "@/lib/site";
 
 const SIGNATURES = [
   { image: "/images/hive.webp", name: "Honeycomb Hive", note: "Savouries · from QAR 24", text: "Pull-apart buns with sesame, baked to order in cast iron." },
@@ -17,7 +17,7 @@ export default function Home() {
     <>
       {/* HERO */}
       <section className="relative isolate flex min-h-svh items-center overflow-hidden">
-        <Image src="/images/grill.webp" alt="" fill priority sizes="100vw" className="kenburns -z-20 object-cover" />
+        <Image src={asset("/images/grill.webp")} alt="" fill priority sizes="100vw" className="kenburns -z-20 object-cover" />
         <div aria-hidden="true" className="absolute inset-0 -z-10 bg-[radial-gradient(120%_80%_at_50%_40%,transparent,var(--background)_85%),linear-gradient(to_bottom,color-mix(in_oklab,var(--background)_55%,transparent),color-mix(in_oklab,var(--background)_70%,transparent)_60%,var(--background))]" />
         <div className="mx-auto w-full max-w-7xl px-5 pb-20 pt-36 text-center sm:px-8">
           <Reveal><p className="ornament justify-center"><span className="eyebrow">{SITE.award}</span></p></Reveal>
@@ -63,7 +63,7 @@ export default function Home() {
           {SIGNATURES.map((s, i) => (
             <Reveal key={s.name} delay={i * 140} as="article" className="group">
               <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem]">
-                <Image src={s.image} alt={s.name} fill sizes="(min-width: 768px) 33vw, 100vw" className="object-cover transition-transform duration-[1.6s] ease-out group-hover:scale-105" />
+                <Image src={asset(s.image)} alt={s.name} fill sizes="(min-width: 768px) 33vw, 100vw" className="object-cover transition-transform duration-[1.6s] ease-out group-hover:scale-105" />
                 <div aria-hidden="true" className="absolute inset-0 rounded-[2rem] ring-1 ring-inset ring-white/10" />
               </div>
               <p className="eyebrow mt-7">{s.note}</p>
@@ -88,7 +88,7 @@ export default function Home() {
       <section className="mx-auto grid max-w-7xl grid-cols-2 gap-4 px-5 py-28 sm:px-8 md:grid-cols-4 md:py-40">
         {["/images/grill.webp", "/images/eggs.webp", "/images/hive.webp", "/images/kofta.webp"].map((src, i) => (
           <Reveal key={src} delay={i * 100} className={`relative overflow-hidden rounded-3xl ${i % 2 ? "aspect-[3/4] md:translate-y-12" : "aspect-[3/4]"}`}>
-            <Image src={src} alt="" fill sizes="(min-width: 768px) 25vw, 50vw" className="object-cover transition-transform duration-[1.6s] hover:scale-105" />
+            <Image src={asset(src)} alt="" fill sizes="(min-width: 768px) 25vw, 50vw" className="object-cover transition-transform duration-[1.6s] hover:scale-105" />
           </Reveal>
         ))}
       </section>

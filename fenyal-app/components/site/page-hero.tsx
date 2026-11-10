@@ -1,10 +1,11 @@
 import Image from "next/image";
+import { asset } from "@/lib/site";
 
 /** Banner at the top of inner pages: photo, dark veil, eyebrow, serif title. */
 export function PageHero({ eyebrow, title, intro, image }: { eyebrow: string; title: string; intro?: string; image: string }) {
   return (
     <section className="relative isolate flex min-h-[62svh] items-end overflow-hidden pb-16 pt-40">
-      <Image src={image} alt="" fill priority sizes="100vw" className="kenburns -z-20 object-cover" />
+      <Image src={asset(image)} alt="" fill priority sizes="100vw" className="kenburns -z-20 object-cover" />
       <div aria-hidden="true" className="absolute inset-0 -z-10 bg-gradient-to-b from-background/70 via-background/60 to-background" />
       <div className="mx-auto w-full max-w-7xl px-5 sm:px-8">
         <p className="eyebrow">{eyebrow}</p>

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { LegalPage, type LegalSection } from "@/components/site/legal-page";
 import { SITE } from "@/lib/site";
 
@@ -66,7 +67,7 @@ const SECTIONS: LegalSection[] = [
           <li>correct it if it is wrong;</li>
           <li>delete it, or stop using it.</li>
         </ul>
-        <p>To make a request, contact us by phone on <a href={SITE.phoneHref}>{SITE.phone}</a> or through our <a href="/contact/">Contact page</a>.</p>
+        <p>To make a request, contact us by phone on <a href={SITE.phoneHref}>{SITE.phone}</a> or through our <Link href="/contact/">Contact page</Link>.</p>
       </>
     ),
   },

@@ -4,7 +4,7 @@ import * as React from "react";
 import Link from "next/link";
 import SushiConveyorMenu from "@/components/ui/sushi-conveyor-menu";
 import type { ConveyorDish } from "@/components/ui/sushi-conveyor-menu";
-import { whatsappLink } from "@/lib/site";
+import { asset, whatsappLink } from "@/lib/site";
 
 /**
  * Fenyal's dishes on the belt. Plates are round crops of real photos taken at Fenyal.
@@ -22,6 +22,8 @@ export const FENYAL_DISHES: ConveyorDish[] = [
   { id: "karak", name: "Karak", price: "Price on request", tier: 5, description: "Strong spiced milk tea, made Fenyal's way.", details: ["Hot drink", "Milk"], image: "/plates/karak.webp" },
 ];
 
+const DISHES = FENYAL_DISHES.map((dish) => ({ ...dish, image: asset(dish.image) }));
+
 export const FENYAL_LEGEND = { 1: "Breakfast", 2: "Savouries", 3: "Grills", 4: "Mezze", 5: "Drinks" };
 
 /** The belt as a section of the home page. "Ask about this dish" opens WhatsApp with the dish name. */
@@ -32,7 +34,7 @@ export default function FenyalConveyor({ autoplay = true }: { autoplay?: boolean
 
   return (
     <SushiConveyorMenu
-      items={FENYAL_DISHES}
+      items={DISHES}
       legend={FENYAL_LEGEND}
       eyebrow="On the belt"
       heading="Our table, always turning."
