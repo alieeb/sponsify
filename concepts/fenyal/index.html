@@ -162,6 +162,20 @@ html[lang="ar"] .panel-d h3{letter-spacing:0;line-height:1.35}
 .panel-d.intro h3{font-size:clamp(44px,8vw,112px);line-height:.98}
 .panel-d.intro .hint{display:inline-flex;align-items:center;gap:10px;margin-top:24px;color:var(--ink-2);font-size:15px}
 .panel-d.intro .hint i{display:inline-block;width:40px;height:1px;background:var(--saffron)}
+.panel-d{gap:clamp(32px,5vw,80px)}
+.panel-d .box{flex:1;min-width:0}
+.panel-d .time{font-size:clamp(64px,10vw,168px)}
+.shot{order:-1;position:relative;flex:none;width:clamp(260px,34vw,520px);height:min(64svh,620px);border-radius:24px;overflow:hidden;border:1px solid var(--border-2);box-shadow:0 30px 80px -30px rgba(0,0,0,.8)}
+.shot img,.ph img{position:absolute;inset:-8% 0;width:100%;height:116%;object-fit:cover;display:block}
+.shot figcaption,.ph figcaption{position:absolute;left:0;right:0;bottom:0;padding:40px 18px 16px;font-size:14px;font-weight:500;background:linear-gradient(180deg,transparent,rgba(0,0,0,.72))}
+
+/* gallery */
+.gal{display:grid;grid-template-columns:repeat(3,1fr);grid-template-areas:"a a b" "c d b";gap:12px;margin-top:48px}
+.ph{position:relative;margin:0;border-radius:22px;overflow:hidden;border:1px solid var(--border);min-height:300px;background:var(--card)}
+.ph.a{grid-area:a;aspect-ratio:3/2}
+.ph.b{grid-area:b}
+.ph.c{grid-area:c;aspect-ratio:1}
+.ph.d{grid-area:d;aspect-ratio:1}
 
 /* spotlight */
 .spot{position:relative;border-radius:var(--radius);border:1px solid var(--border);background:var(--card);overflow:hidden;isolation:isolate;transition:border-color .25s}
@@ -246,7 +260,16 @@ footer p{color:var(--ink-3);font-size:14px}
   .tools .btn.shine{display:none}
   .stats{grid-template-columns:1fr}
   .tabs-wrap{top:76px}
-  .panel-d{padding:0 24px}
+  .panel-d{padding:96px 20px 110px;flex-direction:column;justify-content:center;align-items:stretch;gap:20px}
+  .shot{width:100%;height:30svh;order:-1;border-radius:18px}
+  .panel-d .time{font-size:60px}
+  .panel-d h3{margin-top:10px;font-size:28px}
+  .panel-d p{margin-top:8px;font-size:15px}
+  .panel-d .chips{margin-top:14px}
+  .gal{grid-template-columns:1fr;grid-template-areas:"a" "b" "c" "d"}
+  .ph{min-height:0}
+  .ph.a,.ph.c,.ph.d{aspect-ratio:4/3}
+  .ph.b{aspect-ratio:4/5}
   .dock{display:flex;gap:8px;position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom));z-index:50;padding:8px;border-radius:999px;border:1px solid var(--border-2);background:rgba(15,15,18,.85);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
   .dock .btn{flex:1;height:46px}
 }
@@ -354,7 +377,9 @@ footer p{color:var(--ink-3);font-size:14px}
         <p lang="ar">بلاليط بالزعفران تحت البيض، فول مطبوخ على مهل، وخبز طازج من الفرن، مع قهوة عربية من الدلة.</p>
         <div class="chips"><span lang="en">Balaleet</span><span lang="en">Foul</span><span lang="en">Falafel</span><span lang="en">Arabic coffee</span>
           <span lang="ar">بلاليط</span><span lang="ar">فول</span><span lang="ar">فلافل</span><span lang="ar">قهوة عربية</span></div>
-      </div></div>
+      </div>
+      <figure class="shot"><img src="img/eggs.webp" alt="Creamy eggs in a pan with toasted bread and honey at Fenyal" loading="lazy" decoding="async"><figcaption><span lang="en">Breakfast, slow and creamy</span><span lang="ar">فطور على مهل</span></figcaption></figure>
+      </div>
       <div class="panel-d"><div class="box">
         <span class="time">15:00</span>
         <h3 lang="en">Afternoon, warm from the oven.</h3><h3 lang="ar">العصر، دافي من الفرن.</h3>
@@ -362,7 +387,9 @@ footer p{color:var(--ink-3);font-size:14px}
         <p lang="ar">فطاير جبن وخلية نحل بالزعتر أو السبانخ أو اللحم، مع كرك ثقيل.</p>
         <div class="chips"><span lang="en">Cheese Fatayer</span><span lang="en">Zaatar Hive</span><span lang="en">Karak</span>
           <span lang="ar">فطاير جبن</span><span lang="ar">خلية زعتر</span><span lang="ar">كرك</span></div>
-      </div></div>
+      </div>
+      <figure class="shot"><img src="img/hive.webp" alt="A sesame honeycomb bun baked in a cast-iron pan at Fenyal" loading="lazy" decoding="async"><figcaption><span lang="en">Fresh from the oven</span><span lang="ar">طازج من الفرن</span></figcaption></figure>
+      </div>
       <div class="panel-d"><div class="box">
         <span class="time">21:00</span>
         <h3 lang="en">Evening, the full table.</h3><h3 lang="ar">المساء، السفرة كاملة.</h3>
@@ -370,7 +397,9 @@ footer p{color:var(--ink-3);font-size:14px}
         <p lang="ar">نشيف دجاج، كفتة لحم، وريش على حمص، وبعدها إلبة بالزعفران للختام.</p>
         <div class="chips"><span lang="en">Chicken Nashif</span><span lang="en">Lamb Kofta</span><span lang="en">Saffron Elbah</span>
           <span lang="ar">نشيف دجاج</span><span lang="ar">كفتة لحم</span><span lang="ar">إلبة بالزعفران</span></div>
-      </div></div>
+      </div>
+      <figure class="shot"><img src="img/grill.webp" alt="Grilled chicken on fresh bread with hummus and salad at Fenyal" loading="lazy" decoding="async"><figcaption><span lang="en">Grills on fresh bread, with hummus</span><span lang="ar">مشاوي على خبز طازج، مع حمص</span></figcaption></figure>
+      </div>
     </div>
   </section>
 
@@ -386,6 +415,21 @@ footer p{color:var(--ink-3);font-size:14px}
       <div class="panels" id="panels"></div>
       <p class="menu-note" lang="en">Prices in Qatari riyals. Ask our team about allergies and today's specials.</p>
       <p class="menu-note" lang="ar">الأسعار بالريال القطري. اسأل فريقنا عن الحساسية وأطباق اليوم.</p>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section class="block" id="gallery">
+    <div class="wrap">
+      <span class="eyebrow up"><span lang="en">From our tables</span><span lang="ar">من سفرتنا</span></span>
+      <h2 lang="en" data-split>Straight from our tables.</h2>
+      <h2 lang="ar" data-split>من سفرتنا مباشرة.</h2>
+      <div class="gal">
+        <figure class="ph a"><img src="img/grill.webp" alt="Grilled chicken and skewers on fresh bread with hummus at Fenyal" loading="lazy" decoding="async"><figcaption><span lang="en">Grills on fresh bread, with hummus</span><span lang="ar">مشاوي على خبز طازج، مع حمص</span></figcaption></figure>
+        <figure class="ph b"><img src="img/eggs.webp" alt="Creamy eggs in a pan with toasted bread and honey at Fenyal" loading="lazy" decoding="async"><figcaption><span lang="en">Breakfast, slow and creamy</span><span lang="ar">فطور على مهل</span></figcaption></figure>
+        <figure class="ph c"><img src="img/hive.webp" alt="A sesame honeycomb bun baked in a cast-iron pan at Fenyal" loading="lazy" decoding="async"><figcaption><span lang="en">Fresh from the oven</span><span lang="ar">طازج من الفرن</span></figcaption></figure>
+        <figure class="ph d"><img src="img/kofta.webp" alt="Kofta platter and a breakfast tray with cheese, olives and honey at Fenyal" loading="lazy" decoding="async"><figcaption><span lang="en">Kofta and the breakfast tray</span><span lang="ar">كفتة وصينية الفطور</span></figcaption></figure>
+      </div>
     </div>
   </section>
 
@@ -824,6 +868,31 @@ footer p{color:var(--ink-3);font-size:14px}
         scrollTrigger:{ trigger:pnl, containerAnimation:tl, start: RTL ? "right 30%" : "left 70%", toggleActions:"play none none reverse" } });
     });
   })();
+
+  /* photos: day-panel parallax inside the horizontal scroll */
+  (function(){
+    var pinST = ScrollTrigger.getAll().filter(function(t){ return t.trigger && t.trigger.id === "day" && t.pin; })[0];
+    if (!pinST || !pinST.animation) return;
+    var ca = pinST.animation;
+    $$(".shot").forEach(function(f){
+      var img = $("img", f);
+      gsap.fromTo(img, { xPercent:-3 * SIGN, scale:1.2 }, { xPercent:3 * SIGN, scale:1.1, ease:"none",
+        scrollTrigger:{ trigger:f, containerAnimation:ca, start: RTL ? "right left" : "left right", end: RTL ? "left right" : "right left", scrub:true } });
+      gsap.fromTo(f, { clipPath:"inset(14% 14% 14% 14% round 24px)" }, { clipPath:"inset(0% 0% 0% 0% round 24px)", ease:"power2.out",
+        scrollTrigger:{ trigger:f, containerAnimation:ca, start: RTL ? "right 15%" : "left 85%", end: RTL ? "right 55%" : "left 45%", scrub:true } });
+    });
+  })();
+
+  /* gallery: clip reveal + inner parallax */
+  $$(".ph").forEach(function(f, i){
+    var img = $("img", f), d = (i % 2) * .12;
+    gsap.fromTo(f, { clipPath:"inset(100% 0% 0% 0% round 22px)" }, { clipPath:"inset(0% 0% 0% 0% round 22px)", duration:1.4, ease:"expo.inOut", delay:d,
+      scrollTrigger:{ trigger:f, start:"top 88%" } });
+    gsap.fromTo(img, { scale:1.35 }, { scale:1, duration:1.8, ease:"expo.out", delay:d + .2,
+      scrollTrigger:{ trigger:f, start:"top 88%" } });
+    gsap.fromTo(f.querySelector("img"), { yPercent:-7 }, { yPercent:7, ease:"none", immediateRender:false,
+      scrollTrigger:{ trigger:f, start:"top bottom", end:"bottom top", scrub:true } });
+  });
 
   /* menu cards entrance */
   gsap.from($$(".panel:not([hidden]) .spot"), { y:60, opacity:0, rotateX:-20, duration:1, ease:"expo.out", stagger:.07,
