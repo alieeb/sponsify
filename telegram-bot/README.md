@@ -4,11 +4,12 @@ One small Cloudflare Worker (free plan is enough) that does three jobs:
 
 | Job | What you get in Telegram |
 |---|---|
+| **🧠 AI assistant (Claude)** | Chat with your bot like you chat with Claude: ad copy, hooks, captions, reel scripts, campaign plans, client replies, competitor research (it searches the web). Send a photo of an ad and you get a score out of 10 with fixes and rewritten copy. Works in Arabic, English and French, remembers the conversation (`/new` starts fresh), and only works in your chat, never for strangers. |
 | **Website leads** | Every "Free audit" form on the site arrives instantly, with a **WhatsApp** button that opens a ready-written reply in Arabic or English, plus **Mark as contacted**. |
 | **Chat bot** | Visitors get a menu in Arabic or English: free audit booking (service → business → budget → WhatsApp → goal), services, work, FAQ and prices. Each booking reaches you scored 🔥 HOT / 🌤 WARM / ❄️ COLD. Anything else they type is forwarded to you. **Reply to it and the bot sends your answer back**, including text, photos and voice notes. |
 | **Meta ads** | 9:00 Doha: yesterday's leads + an ads report for each account (spend, results, cost per result, ROAS, CTR, CPC, CPM, top campaigns), plus a 7-day report every Sunday. 16:00 Doha: an alert only if something is wrong, such as spend with 0 results, CPA over your limit, ROAS under target, low CTR, high frequency or a payment problem on the account. |
 
-Your commands: `/leads` `/ads` `/today` `/week` `/alerts` `/help`
+Your commands: `/new` `/usage` `/leads` `/ads` `/today` `/week` `/alerts` `/help`. Anything else you type goes to the AI.
 
 > 🔒 The bot token is never in this repo or the website. It lives only in Cloudflare as a secret.
 
@@ -32,6 +33,7 @@ Worker → **Settings → Variables and Secrets → Add** (type **Secret**):
 |---|---|
 | `TELEGRAM_BOT_TOKEN` | your token from @BotFather |
 | `ADMIN_KEY` | any long password you invent, e.g. `sponsify-7Kq9-xT2m-Doha` |
+| `ANTHROPIC_API_KEY` | your Claude API key (step 7) |
 
 ### 4. Turn on the daily reports
 Worker → **Settings → Triggers → Cron Triggers → Add**:
@@ -64,7 +66,26 @@ In `index.html`, find `data-endpoint=""` on the form and put your worker address
 Until you do this, the form keeps working the old way (opens the visitor's email app). If the bot is ever down, it falls back to email too, so you never lose a lead.
 Moving to your own domain later? Add it in Worker → Variables: `ALLOWED_ORIGINS` = `https://alieeb.github.io,https://www.yourdomain.com`.
 
-### 7. (Optional) Meta ads reports
+### 7. Turn on the AI (Claude)
+The AI uses the Claude API. It is **separate from a Claude.ai subscription** and you pay per message.
+1. Go to **console.anthropic.com** and sign up.
+2. **Billing → add credit** (start with $10).
+3. **API keys → Create key** → copy it.
+4. Worker → **Settings → Variables and Secrets → Add** (type **Secret**): `ANTHROPIC_API_KEY` = that key.
+5. Send any message to your bot. Send `/usage` to see what today cost.
+
+**Cost:** about 2 to 6 US cents per message on the default model (Claude Opus 5.5), a little more with photos or web search.
+
+Optional settings (Worker → Variables):
+
+| Variable | Example | Meaning |
+|---|---|---|
+| `AI_CONTEXT` | `Clients: Kaza Store (perfume, luxury tone)...` | private notes the AI always knows: clients, brand voices, your prices. Kept in Cloudflare, not in this public code. |
+| `CLAUDE_MODEL` | `claude-sonnet-5-5` | a cheaper model (about half the price) |
+| `AI_EFFORT` | `low` / `medium` / `high` | how hard it thinks: `low` is faster and cheaper, `high` is deeper. Default `medium`. |
+| `AI_WEB_SEARCH` | `off` | turn off web search |
+
+### 8. (Optional) Meta ads reports
 1. **business.facebook.com → Settings → Users → System users → Add** (Admin).
 2. **Assign assets** → your ad accounts (and clients' accounts you manage) → *View performance*.
 3. **Generate new token** → choose your app → tick **`ads_read`** → token expiration **Never**.
@@ -96,6 +117,7 @@ cd telegram-bot
 npx wrangler kv namespace create BOT     # paste the id into wrangler.toml
 npx wrangler secret put TELEGRAM_BOT_TOKEN
 npx wrangler secret put ADMIN_KEY
+npx wrangler secret put ANTHROPIC_API_KEY
 npx wrangler deploy
 ```
 Then do steps 5 and 6.

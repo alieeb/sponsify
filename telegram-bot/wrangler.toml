@@ -2,6 +2,7 @@
 # Secrets are NOT stored here. Add them with:
 #   npx wrangler secret put TELEGRAM_BOT_TOKEN
 #   npx wrangler secret put ADMIN_KEY
+#   npx wrangler secret put ANTHROPIC_API_KEY   (the AI)
 #   npx wrangler secret put META_ACCESS_TOKEN   (optional)
 
 name = "sponsify-bot"
@@ -24,3 +25,4 @@ ALERT_MIN_ROAS = ""
 ALERT_MIN_CTR = "0.8"
 ALERT_MAX_FREQ = "3.5"
 ALERT_ZERO_RESULT_SPEND = "100"
+AI_EFFORT = "medium"

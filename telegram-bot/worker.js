@@ -5,6 +5,7 @@
  *   1. Website leads   POST /lead       the "Free audit" form on the site lands in your Telegram.
  *   2. Chat bot        POST /telegram   visitors book a free audit, read services/FAQ (EN + AR),
  *                                       or message you; you reply from Telegram and it relays back.
+ *   4. AI assistant    owner chat       type anything (or send an ad photo) and Claude answers.
  *   3. Meta ads        cron + commands  daily report at 9:00 Doha, alert check at 16:00 Doha,
  *                                       /ads /today /week /alerts on demand.
  *
@@ -12,6 +13,7 @@
  *   TELEGRAM_BOT_TOKEN  (secret)  from @BotFather
  *   ADMIN_KEY           (secret)  a long password you choose; used by /setup and /claim
  *   META_ACCESS_TOKEN   (secret, optional)  Meta system-user token with ads_read
+ *   ANTHROPIC_API_KEY   (secret, optional)  Claude API key: turns on the AI assistant in your chat
  * Plain variables (all optional):
  *   META_AD_ACCOUNT_IDS   "act_123,act_456"
  *   ALLOWED_ORIGINS       sites allowed to post leads, default https://alieeb.github.io
@@ -23,6 +25,10 @@
  *   RESULT_ACTIONS        override which Meta action types count as results
  *   META_API_VERSION      default v24.0
  *   OWNER_CHAT_ID         skip /claim and send everything to this chat
+ *   AI_CONTEXT            private notes the AI always knows (clients, brand voice, prices)
+ *   CLAUDE_MODEL          default claude-opus-5-5
+ *   AI_EFFORT             low | medium | high, default medium
+ *   AI_WEB_SEARCH         "off" to disable web search
  * KV namespace binding: BOT
  */
 
@@ -127,7 +133,11 @@ const WA_PREFILL = {
 };
 
 const OWNER_HELP =
-  "<b>Your SPONSIFY bot commands</b>\n\n" +
+  "<b>Your SPONSIFY bot</b>\n\n" +
+  "🧠 <b>Just type.</b> Anything you write here goes to Claude: ad copy, hooks, captions, scripts, ideas, plans, client replies, competitor research. Arabic, English or French.\n" +
+  "📸 Send a photo of an ad and get a creative review with fixes.\n" +
+  "/new · start a fresh AI chat · /usage · today's AI cost\n\n" +
+  "<b>Commands</b>\n" +
   "/leads · last 10 leads\n" +
   "/ads · Meta ads report for yesterday\n" +
   "/today · today so far\n" +
@@ -205,6 +215,7 @@ async function onSetup(env, url) {
     `Website form endpoint (put this in index.html, data-endpoint on the form):\n   ${url.origin}/lead`,
     "",
     `Meta ads: ${metaReady(env) ? "✅ connected for " + accountIds(env).join(", ") : "not set up yet (optional, see README)"}`,
+    `Claude AI: ${aiReady(env) ? "✅ ready (" + aiModel(env) + ")" : "not set up yet: add the ANTHROPIC_API_KEY secret (see README)"}`,
   ];
   return text(lines.join("\n"));
 }
@@ -217,6 +228,8 @@ async function onClaim(m, env, txt) {
   await tg(env, "setMyCommands", {
     scope: { type: "chat", chat_id: m.chat.id },
     commands: [
+      { command: "new", description: "Start a fresh AI chat" },
+      { command: "usage", description: "Today's AI cost" },
       { command: "leads", description: "Last 10 leads" },
       { command: "ads", description: "Ads report: yesterday" },
       { command: "today", description: "Ads report: today so far" },
@@ -237,7 +250,11 @@ async function onTelegram(req, env, ctx) {
   const got = req.headers.get("X-Telegram-Bot-Api-Secret-Token") || "";
   if (!safeEqual(got, await webhookSecret(env))) return text("forbidden", 403);
   const update = await req.json();
-  ctx.waitUntil(handleUpdate(update, env).catch((e) => console.log("update error", e && e.stack ? e.stack : e)));
+  // Telegram re-sends an update if a slow AI answer keeps it waiting too long: skip the repeat.
+  if (update.update_id != null && env.BOT && (await env.BOT.get(`upd:${update.update_id}`))) return text("ok");
+  const work = handleUpdate(update, env).catch((e) => console.log("update error", e && e.stack ? e.stack : e));
+  ctx.waitUntil(work); // keeps running ~30 s more if Telegram hangs up
+  await work; // hold Telegram's request open so long AI answers aren't cut off
   return text("ok");
 }
 
@@ -253,14 +270,14 @@ async function handleUpdate(u, env) {
 
   const owner = await getOwner(env);
   const isOwner = owner && String(m.chat.id) === String(owner);
-  if (isOwner && (await onOwnerMessage(m, env, cmd))) return;
+  if (isOwner && (await onOwnerMessage(m, env, cmd, txt, u.update_id))) return;
   if (m.chat.type !== "private") return;
   return onVisitorMessage(m, env, owner, cmd, txt, isOwner);
 }
 
 // ---- owner
 
-async function onOwnerMessage(m, env, cmd) {
+async function onOwnerMessage(m, env, cmd, txt, updateId) {
   if (m.reply_to_message) {
     const target = await env.BOT.get(`r:${m.reply_to_message.message_id}`);
     if (target) {
@@ -296,8 +313,306 @@ async function onOwnerMessage(m, env, cmd) {
       for (const s of msgs) await sendLong(env, m.chat.id, s);
       return true;
     }
+    case "/new": {
+      const mem = await getAI(env, m.chat.id);
+      mem.msgs = [];
+      await putAI(env, m.chat.id, mem);
+      await send(env, m.chat.id, "🧹 Fresh chat. What are we working on?");
+      return true;
+    }
+    case "/usage":
+      await send(env, m.chat.id, aiUsageText(env, await getAI(env, m.chat.id)));
+      return true;
+    case "/ai":
+      await onAI(env, m, txt.replace(/^\/ai(@\w+)?\s*/i, ""), updateId);
+      return true;
+  }
+  if (!cmd && (txt || pickImage(m) || m.voice || m.audio || m.video_note)) {
+    const s = await getState(env, m.chat.id);
+    if (s.step) return false; // you're testing the visitor audit flow: let it finish
+    await onAI(env, m, txt, updateId);
+    return true;
   }
   return false; // let the owner try the visitor flow (/start etc.)
+}
+
+// ---------------------------------------------------------------- Claude AI (owner chat only)
+
+const AI_SYSTEM = `You are the in-house marketing brain of SPONSIFY, a digital marketing agency in Qatar that builds websites, runs social media, runs paid ads on Meta, Google and TikTok, builds marketing automation and lead generation, and develops apps for brands in Qatar and the GCC. You work inside Telegram with Ali, the founder, who is a media buyer and copywriter. Treat him as a senior colleague: skip basics unless he asks.
+
+What he will ask you for:
+- Ad copy: primary text, headlines, descriptions, hooks, CTAs, offers, angles, UGC and reel scripts, captions, carousel text.
+- Creative reviews: when he sends an image of an ad or a post, score it out of 10 and judge the hook, visual hierarchy, offer, proof and CTA, then give concrete fixes and rewritten copy.
+- Strategy: campaign structures, audiences, budgets, testing plans, funnels, positioning, content calendars, client proposals, pitch emails and WhatsApp replies to clients.
+- Research: competitors, trends and market facts. Use web search when the answer depends on current or local information, and say where facts come from.
+- Analysis: when he pastes numbers from Ads Manager, say what is working, what is not and what to do next.
+
+How to work:
+- Lead with the deliverable. When he asks for copy, give 3 to 5 distinct options he can paste straight into Ads Manager or Instagram, each labelled by angle.
+- Reply in the language he writes in (English, Arabic or French). Write Arabic copy in clear Modern Standard Arabic that reads naturally in the Gulf, unless he asks for Khaleeji dialect. Respect GCC culture and Meta ad policies, and use QAR for Qatar unless told otherwise.
+- Be specific and practical. No filler, no generic advice, no hype words like "unlock" or "elevate".
+- Never invent statistics, client results, prices or quotes. If you need a fact you don't have, search for it or ask.
+- If a brief is too vague to do well, make sensible assumptions, deliver, and list the assumptions in one line at the end.
+
+Formatting: this is read on a phone in Telegram. Use short paragraphs, "-" bullets and **bold** labels. No tables, no # headings, no horizontal rules. Keep replies under about 400 words unless he asks for something long.`;
+
+const AI_PRICES = {
+  // $ per million tokens: input, output, cache read (cache writes cost 1.25x input)
+  "claude-opus-5-5": [4, 20, 0.2],
+  "claude-sonnet-5-5": [2, 10, 0.1],
+  "claude-haiku-5-5": [0.1, 0.5, 0.01],
+};
+
+function aiReady(env) {
+  return Boolean(env.ANTHROPIC_API_KEY);
+}
+
+function aiModel(env) {
+  return env.CLAUDE_MODEL || "claude-opus-5-5";
+}
+
+async function getAI(env, chatId) {
+  const raw = await env.BOT.get(`ai:${chatId}`);
+  try {
+    return raw ? JSON.parse(raw) : { msgs: [] };
+  } catch {
+    return { msgs: [] };
+  }
+}
+
+function putAI(env, chatId, mem) {
+  return env.BOT.put(`ai:${chatId}`, JSON.stringify(mem), { expirationTtl: 30 * DAY });
+}
+
+function pickImage(m) {
+  const MAX = 3.5e6; // keeps the base64 image under the API's 5 MB per-image limit
+  if (m.photo && m.photo.length) {
+    const fits = m.photo.filter((p) => !p.file_size || p.file_size <= MAX);
+    const p = fits[fits.length - 1];
+    return p ? { file_id: p.file_id, type: "image/jpeg" } : null;
+  }
+  const d = m.document;
+  if (d && /^image\/(jpeg|png|gif|webp)$/.test(d.mime_type || "") && (d.file_size || 0) <= MAX) return { file_id: d.file_id, type: d.mime_type };
+  return null;
+}
+
+async function tgImage(env, img) {
+  const f = await tg(env, "getFile", { file_id: img.file_id });
+  if (!f.ok || !f.result || !f.result.file_path) return null;
+  const r = await fetch(`https://api.telegram.org/file/bot${env.TELEGRAM_BOT_TOKEN}/${f.result.file_path}`);
+  if (!r.ok) return null;
+  const bytes = new Uint8Array(await r.arrayBuffer());
+  let bin = "";
+  for (let i = 0; i < bytes.length; i += 0x8000) bin += String.fromCharCode.apply(null, bytes.subarray(i, i + 0x8000));
+  return { type: img.type, data: btoa(bin) };
+}
+
+async function onAI(env, m, prompt, updateId) {
+  const chatId = m.chat.id;
+  if (!aiReady(env)) {
+    return send(env, chatId, "🧠 The AI isn't connected yet. Add your Claude API key in Cloudflare as the secret <code>ANTHROPIC_API_KEY</code> (step 7 in the README). Send /help for the other commands.");
+  }
+  if (m.voice || m.audio || m.video_note) return send(env, chatId, "🎙 I can't listen to voice notes yet. Type it, or send a screenshot.");
+  if (updateId != null) await env.BOT.put(`upd:${updateId}`, "1", { expirationTtl: 3600 });
+
+  const content = [];
+  const img = pickImage(m);
+  if (img) {
+    const data = await tgImage(env, img);
+    if (!data) return send(env, chatId, "⚠️ I couldn't open that image. Try sending it as a normal photo (not a file), under 3 MB.");
+    content.push({ type: "image", source: { type: "base64", media_type: data.type, data: data.data } });
+  }
+  const text = (prompt || m.caption || "").trim() || (img ? "Review this ad creative. Score it out of 10, judge the hook, visual, offer and CTA, and give me the fixes plus rewritten copy." : "");
+  if (!text) return;
+  content.push({ type: "text", text });
+
+  const mem = await getAI(env, chatId);
+  const messages = mem.msgs.concat([{ role: "user", content: img ? content : text }]);
+
+  const ph = await send(env, chatId, "✍️ <i>Working on it…</i>");
+  const typing = setInterval(() => tg(env, "sendChatAction", { chat_id: chatId, action: "typing" }), 4500);
+  let res;
+  try {
+    res = await callClaude(env, messages);
+  } catch (e) {
+    res = { error: String((e && e.message) || e) };
+  } finally {
+    clearInterval(typing);
+  }
+  const phId = ph.ok ? ph.result.message_id : null;
+
+  if (res.error) return deliverAI(env, chatId, phId, res.error, true);
+  if (!res.text) {
+    const why = res.stop === "refusal" ? "🙅 Claude declined that one. Try rephrasing it." : "🤔 No answer came back. Try again, or send /new.";
+    return deliverAI(env, chatId, phId, why, true);
+  }
+
+  let out = res.text;
+  if (res.stop === "max_tokens") out += "\n\n_(cut off: say “continue” for the rest)_";
+  if (res.sources.size) out += "\n\n**Sources**\n" + [...res.sources].slice(0, 5).map(([url, title]) => `- [${clip(title, 60)}](${url})`).join("\n");
+  await deliverAI(env, chatId, phId, out, false);
+
+  // Memory: plain text turns only (no thinking blocks), so trimming old turns is safe.
+  mem.msgs = messages.concat([{ role: "assistant", content: res.text }]);
+  if (mem.msgs.length > 24) mem.msgs = mem.msgs.slice(-12);
+  while (mem.msgs.length && mem.msgs[0].role !== "user") mem.msgs.shift();
+  addUsage(env, mem, res);
+  await putAI(env, chatId, mem);
+}
+
+async function callClaude(env, history) {
+  const deadline = Date.now() + 85000; // Cloudflare + Telegram give us roughly 90 seconds
+  const body = {
+    model: aiModel(env),
+    max_tokens: 16000,
+    system: AI_SYSTEM + (env.AI_CONTEXT ? `\n\nPrivate notes from Ali (clients, brand voice, prices):\n${env.AI_CONTEXT}` : ""),
+    output_config: { effort: env.AI_EFFORT || "medium" },
+    cache_control: { type: "ephemeral" },
+    fallbacks: "default", // if Claude declines a request, the API retries it on a fallback model
+  };
+  if (env.AI_WEB_SEARCH !== "off") body.tools = [{ type: "web_search_20260209", name: "web_search", max_uses: 5 }];
+
+  const out = { text: "", sources: new Map(), stop: null, usage: { in: 0, out: 0, cr: 0, cw: 0, search: 0 }, model: body.model };
+  let messages = history.slice();
+  let useFallbacks = true;
+  let retried = false;
+  for (let turn = 0; turn < 4; ) {
+    const remaining = deadline - Date.now();
+    if (remaining < 3000) throw new Error("⌛ That took too long. Ask for something shorter, or send /new and try again.");
+    const req = Object.assign({}, body, { messages });
+    const headers = { "content-type": "application/json", "x-api-key": env.ANTHROPIC_API_KEY, "anthropic-version": "2026-10-21" };
+    if (useFallbacks) headers["anthropic-beta"] = "server-side-fallback-2026-07-01";
+    else delete req.fallbacks;
+
+    let r;
+    try {
+      r = await fetch("https://api.anthropic.com/v1/messages", { method: "POST", headers, body: JSON.stringify(req), signal: AbortSignal.timeout(remaining) });
+    } catch (e) {
+      if (e && (e.name === "TimeoutError" || e.name === "AbortError")) throw new Error("⌛ That took too long. Ask for something shorter, or send /new and try again.");
+      throw new Error("⚠️ Couldn't reach Claude. Try again in a moment.");
+    }
+    const j = await r.json().catch(() => ({}));
+    if (!r.ok) {
+      const msg = (j.error && j.error.message) || `HTTP ${r.status}`;
+      if (r.status === 400 && useFallbacks && /fallback/i.test(msg)) {
+        useFallbacks = false; // this account/model doesn't take fallbacks: send the plain request
+        continue;
+      }
+      if ((r.status === 429 || r.status === 529 || r.status >= 500) && !retried) {
+        retried = true;
+        await new Promise((ok) => setTimeout(ok, 2000));
+        continue;
+      }
+      throw new Error(claudeError(r.status, msg));
+    }
+
+    for (const b of j.content || []) {
+      if (b.type !== "text") continue;
+      out.text += b.text;
+      for (const c of b.citations || []) if (c.url && !out.sources.has(c.url)) out.sources.set(c.url, c.title || c.url);
+    }
+    const u = j.usage || {};
+    out.usage.in += u.input_tokens || 0;
+    out.usage.out += u.output_tokens || 0;
+    out.usage.cr += u.cache_read_input_tokens || 0;
+    out.usage.cw += u.cache_creation_input_tokens || 0;
+    out.usage.search += (u.server_tool_use && u.server_tool_use.web_search_requests) || 0;
+    out.stop = j.stop_reason;
+    if (j.model) out.model = j.model;
+    if (j.stop_reason !== "pause_turn") break;
+    messages = messages.concat([{ role: "assistant", content: j.content }]); // resume a long web-search turn
+    turn++;
+  }
+  return out;
+}
+
+function claudeError(status, msg) {
+  if (status === 401) return "❌ Your Claude API key is wrong or was deleted. Update ANTHROPIC_API_KEY in Cloudflare.";
+  if (/credit balance/i.test(msg)) return "💳 Your Claude API credit is empty. Top up at console.anthropic.com → Billing.";
+  if (status === 429) return "⏳ Too many requests right now. Try again in a minute.";
+  if (status === 529 || status >= 500) return "😮‍💨 Claude is overloaded right now. Try again in a minute.";
+  return "⚠️ Claude error: " + msg;
+}
+
+async function deliverAI(env, chatId, placeholderId, md, plain) {
+  const chunks = splitText(md, 3500);
+  for (let i = 0; i < chunks.length; i++) {
+    const html = plain ? esc(chunks[i]) : mdToHtml(chunks[i]);
+    if (i === 0 && placeholderId) {
+      const r = await edit(env, chatId, placeholderId, html, null);
+      if (!r.ok) await tg(env, "editMessageText", { chat_id: chatId, message_id: placeholderId, text: chunks[i] });
+    } else {
+      const r = await send(env, chatId, html);
+      if (!r.ok) await tg(env, "sendMessage", { chat_id: chatId, text: chunks[i] });
+    }
+  }
+}
+
+function splitText(s, max) {
+  const out = [];
+  let cur = "";
+  for (const para of String(s).split("\n")) {
+    if (cur && cur.length + para.length + 1 > max) {
+      out.push(cur);
+      cur = "";
+    }
+    if (para.length > max) {
+      for (let i = 0; i < para.length; i += max) out.push(para.slice(i, i + max));
+      continue;
+    }
+    cur += (cur ? "\n" : "") + para;
+  }
+  if (cur) out.push(cur);
+  return out.length ? out : [""];
+}
+
+// Claude writes Markdown; Telegram wants its own small HTML subset.
+function mdToHtml(md) {
+  const blocks = [];
+  let s = String(md).replace(/```[\w-]*\n?([\s\S]*?)```/g, (_, code) => {
+    blocks.push(`<pre>${esc(code.replace(/\n$/, ""))}</pre>`);
+    return `\u0000${blocks.length - 1}\u0000`;
+  });
+  s = esc(s)
+    .replace(/`([^`\n]+)`/g, "<code>$1</code>")
+    .replace(/^\s*(?:---+|\*\*\*+|___+)\s*$/gm, "")
+    .replace(/^#{1,6}\s+(.+)$/gm, "<b>$1</b>")
+    .replace(/^(\s*)[-*]\s+/gm, "$1• ")
+    .replace(/\*\*([^*\n]+?)\*\*/g, "<b>$1</b>")
+    .replace(/__([^_\n]+?)__/g, "<b>$1</b>")
+    .replace(/(^|[^\w*])\*([^*\n]+?)\*(?![\w*])/gm, "$1<i>$2</i>")
+    .replace(/(^|[^\w_])_([^_\n]+?)_(?![\w_])/gm, "$1<i>$2</i>")
+    .replace(/\[([^\]\n]+)\]\((https?:\/\/[^\s)]+)\)/g, '<a href="$2">$1</a>');
+  return s.replace(/\u0000(\d+)\u0000/g, (_, i) => blocks[+i]).replace(/\n{3,}/g, "\n\n").trim();
+}
+
+function addUsage(env, mem, res) {
+  const day = new Date(dohaMidnight(Date.now())).toISOString().slice(0, 10);
+  if (!mem.usage || mem.usage.day !== day) mem.usage = { day, n: 0, in: 0, out: 0, cr: 0, cw: 0, search: 0, usd: 0 };
+  const u = mem.usage;
+  const p = AI_PRICES[res.model] || AI_PRICES[aiModel(env)] || AI_PRICES["claude-opus-5-5"];
+  const r = res.usage;
+  u.n += 1;
+  u.in += r.in;
+  u.out += r.out;
+  u.cr += r.cr;
+  u.cw += r.cw;
+  u.search += r.search;
+  u.usd += (r.in * p[0] + r.cw * p[0] * 1.25 + r.cr * p[2] + r.out * p[1]) / 1e6 + r.search * 0.01;
+}
+
+function aiUsageText(env, mem) {
+  const u = mem.usage;
+  const today = new Date(dohaMidnight(Date.now())).toISOString().slice(0, 10);
+  if (!u || u.day !== today) return `🧾 No AI messages yet today.\nModel: <code>${esc(aiModel(env))}</code>`;
+  const k = (n) => (n >= 1000 ? (n / 1000).toFixed(1) + "k" : String(n));
+  return (
+    `🧾 <b>AI today</b> (Doha time)\n\n` +
+    `💬 ${u.n} message${u.n === 1 ? "" : "s"} · about <b>$${u.usd.toFixed(2)}</b>\n` +
+    `📥 Input ${k(u.in + u.cr + u.cw)} tokens (${k(u.cr)} from cache)\n📤 Output ${k(u.out)} tokens` +
+    (u.search ? `\n🔎 ${u.search} web search${u.search === 1 ? "" : "es"}` : "") +
+    `\nModel: <code>${esc(aiModel(env))}</code>\n\n<i>Estimate. Your real bill is at console.anthropic.com.</i>`
+  );
 }
 
 // ---- visitors
@@ -373,7 +688,7 @@ async function onVisitorMessage(m, env, owner, cmd, txt, isOwner) {
     }
   }
 
-  if (isOwner) return send(env, chatId, "This is your owner chat, so messages here aren't relayed. Send /help for your commands, or /start to see the visitor menu.");
+  if (isOwner) return send(env, chatId, "Send text or a photo and the AI will answer. Send /help for all commands.");
   return relayToOwner(env, m, owner, s);
 }
 
