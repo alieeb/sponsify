@@ -14,6 +14,10 @@ Four AI agents you talk to from Telegram. They run on **your computer** and use 
 - `Hook, 5 Arabic hooks for a Doha gym` → only Hook works
 - `Lens, here are yesterday's numbers: ...` → a report with the next 3 actions
 - Send a photo of an ad → Hook reviews it
+- `Remind me at 4pm to send the Kaza proposal` → at 4pm the team messages you
+- `I need to call Sharmax this week` → saved as a task, shows up in your morning brief
+
+**☀️ It messages you first.** Every morning at 8:57 you get a short brief on Telegram: today's meetings, emails that need you, yesterday's ad numbers, and your top 3 for the day. Change it anytime: `brief at 8:30`, `no brief on Fridays`.
 
 The team never launches, edits or spends on ads until you write **"yes, launch"**.
 
@@ -63,7 +67,7 @@ Log in with your Claude account if it asks. When it asks **"Do you trust the fil
 If double-clicking doesn't work, paste this in Terminal / PowerShell instead:
 ```
 cd ~/Documents/sponsify-team
-claude --channels plugin:telegram@claude-plugins-official
+claude "Startup" --channels plugin:telegram@claude-plugins-official
 ```
 
 ### 6. Pair your Telegram (once)
@@ -76,13 +80,18 @@ Send any message to your bot on Telegram. It replies with a code. In the Claude 
 
 Now only you can talk to your team. ✅
 
+### 7. Test the morning brief (once, at the computer)
+Send `Morning brief` to your bot on Telegram. The first time, Claude asks in the computer window for permission to read your **Google Calendar**, **Gmail** and **Meta Ads** (they're the apps already connected to your Claude account). Choose **"Yes, and don't ask again"** for each **read** action. After this, the 8:57 brief arrives on its own while you're away.
+
+If it asks to **send**, **create** or **change** anything, say **No**: the brief only reads.
+
 The first time the team replies, Claude may ask permission to use Telegram: choose **"Yes, and don't ask again"**.
 
 ---
 
 ## Every day
-1. Double-click the start file (step 5) and leave the window open.
-2. Talk to your team on Telegram.
+1. Double-click the start file (step 5) and leave the window open. The team sends "👑 Team online" on Telegram.
+2. Talk to your team on Telegram. The brief comes every morning at 8:57.
 
 If the computer sleeps or the window closes, the team stops answering until you start it again. On Windows, set **Settings → System → Power → Sleep: Never** (when plugged in).
 
@@ -92,4 +101,4 @@ Copy `clients/_template.md` for each client (for example `clients/kaza-store.md`
 ## Notes
 - Uses Claude Code **Channels**, an official feature that's still in preview, so the steps may change slightly: https://code.claude.com/docs/en/channels
 - One Telegram bot can only be connected to one thing. If you later switch on the website-leads bot (`telegram-bot/`), create a second bot in @BotFather for it.
-- The team can't run shell commands on your computer. It can only search the web and write in `clients/` and `deliverables/`.
+- The team can't run shell commands on your computer. It can only search the web and write in `clients/`, `deliverables/` and `memory/`.

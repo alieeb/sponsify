@@ -5,6 +5,7 @@
       "WebFetch",
       "Edit(/deliverables/**)",
       "Edit(/clients/**)",
+      "Edit(/memory/**)",
       "mcp__plugin_telegram_telegram__*"
     ],
     "deny": [
