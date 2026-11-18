@@ -27,13 +27,39 @@
   try { saved = localStorage.getItem("lang") || "en"; } catch (e) {}
   setLang(saved);
 
-  // ---- contact form: opens the visitor's email app ----
+  // ---- contact form: sends the lead to the SPONSIFY Telegram bot (data-endpoint on the form).
+  //      If the endpoint is empty or unreachable, it opens the visitor's email app instead. ----
   var form = document.getElementById("f");
+  var loadedAt = Date.now();
+  function mailLead(d) {
+    var body = "Name: " + d.name + "\nBusiness: " + d.business + "\nPhone: " + d.phone + "\nService: " + d.service + "\n\n" + d.msg;
+    location.href = "mailto:aliboussella@gmail.com?subject=" + encodeURIComponent("Free audit request - " + d.business) + "&body=" + encodeURIComponent(body);
+  }
   if (form) form.addEventListener("submit", function (e) {
     e.preventDefault();
     var d = Object.fromEntries(new FormData(form));
-    var body = "Name: " + d.name + "\nBusiness: " + d.business + "\nPhone: " + d.phone + "\nService: " + d.service + "\n\n" + d.msg;
-    location.href = "mailto:aliboussella@gmail.com?subject=" + encodeURIComponent("Free audit request - " + d.business) + "&body=" + encodeURIComponent(body);
+    var endpoint = form.getAttribute("data-endpoint");
+    if (!endpoint || !window.fetch) return mailLead(d);
+    var submit = form.querySelector('[type="submit"]');
+    var label = submit.innerHTML;
+    submit.disabled = true;
+    submit.textContent = html.lang === "ar" ? "جارٍ الإرسال…" : "Sending…";
+    d.lang = html.lang;
+    d.page = location.href;
+    d.elapsed = Date.now() - loadedAt;
+    fetch(endpoint, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(d) })
+      .then(function (r) { return r.json(); })
+      .then(function (j) {
+        if (!j || !j.ok) throw new Error("not sent");
+        form.hidden = true;
+        var ok = document.getElementById("form-ok");
+        if (ok) { ok.hidden = false; ok.focus(); }
+      })
+      .catch(function () {
+        submit.disabled = false;
+        submit.innerHTML = label;
+        mailLead(d);
+      });
   });
 
   // ---- spotlight follows the pointer on cards ----

@@ -1,0 +1,26 @@
+# Only needed if you deploy with the Wrangler CLI. Dashboard users can ignore this file.
+# Secrets are NOT stored here. Add them with:
+#   npx wrangler secret put TELEGRAM_BOT_TOKEN
+#   npx wrangler secret put ADMIN_KEY
+#   npx wrangler secret put META_ACCESS_TOKEN   (optional)
+
+name = "sponsify-bot"
+main = "worker.js"
+compatibility_date = "2025-10-01"
+
+[[kv_namespaces]]
+binding = "BOT"
+id = "PASTE_YOUR_KV_NAMESPACE_ID"   # npx wrangler kv namespace create BOT
+
+[triggers]
+# 06:00 UTC = 9:00 Doha: leads digest + ads report. 13:00 UTC = 16:00 Doha: alert check.
+crons = ["0 6 * * *", "0 13 * * *"]
+
+[vars]
+ALLOWED_ORIGINS = "https://alieeb.github.io"
+META_AD_ACCOUNT_IDS = ""
+ALERT_MAX_CPA = ""
+ALERT_MIN_ROAS = ""
+ALERT_MIN_CTR = "0.8"
+ALERT_MAX_FREQ = "3.5"
+ALERT_ZERO_RESULT_SPEND = "100"
