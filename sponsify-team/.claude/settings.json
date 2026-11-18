@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "WebFetch",
+      "Edit(/deliverables/**)",
+      "Edit(/clients/**)",
+      "mcp__plugin_telegram_telegram__*"
+    ],
+    "deny": [
+      "Bash",
+      "PowerShell"
+    ]
+  }
+}
