@@ -32,8 +32,12 @@
   if (form) form.addEventListener("submit", function (e) {
     e.preventDefault();
     var d = Object.fromEntries(new FormData(form));
-    var body = "Name: " + d.name + "\nBusiness: " + d.business + "\nPhone: " + d.phone + "\nService: " + d.service + "\n\n" + d.msg;
-    location.href = "mailto:aliboussella@gmail.com?subject=" + encodeURIComponent("Free audit request - " + d.business) + "&body=" + encodeURIComponent(body);
+    var body = "Name: " + d.name + "\nBusiness: " + d.business + "\nPhone: " + d.phone +
+      (d.email ? "\nEmail: " + d.email : "") + "\nService: " + d.service +
+      (d.budget ? "\nMonthly ad budget: " + d.budget : "") + (d.start ? "\nStart: " + d.start : "") +
+      (d.source ? "\nHeard about us: " + d.source : "") + "\n\n" + (d.msg || "");
+    var subj = (form.getAttribute("data-subject") || "Free audit request") + " - " + d.business;
+    location.href = "mailto:aliboussella@gmail.com?subject=" + encodeURIComponent(subj) + "&body=" + encodeURIComponent(body);
   });
 
   // ---- spotlight follows the pointer on cards ----
